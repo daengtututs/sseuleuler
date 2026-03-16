@@ -337,6 +337,77 @@
   .vt-mob-total.gv .vt-mob-total-v { color: var(--green); }
   .vt-mob-total-l { font-size: 10px; color: var(--text3); margin-top: 2px; }
 
+  /* OPNAME VARIANT CARDS */
+  .op-vcard {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--sh);
+  }
+  .op-vcard-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .op-vcard-meta { font-size: 11px; color: var(--text3); font-family: var(--H); }
+  .op-vcard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .op-vf { display: flex; flex-direction: column; gap: 4px; }
+  .op-vf-lbl {
+    font-family: var(--H);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text3);
+  }
+  .op-vinp {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--rs);
+    padding: 8px 6px;
+    font-size: 16px;
+    font-family: var(--H);
+    font-weight: 700;
+    color: var(--text);
+    width: 100%;
+    text-align: center;
+    outline: none;
+    transition: border-color .15s, box-shadow .12s;
+    -webkit-appearance: none;
+  }
+  .op-vinp:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--al); background: var(--white); }
+  .op-vinp-direct { border-color: var(--gb); background: var(--gl); }
+  .op-vinp-direct:focus { border-color: var(--green); box-shadow: 0 0 0 2px var(--gl); }
+  .op-vf-sub { font-size: 10px; color: var(--text3); text-align: center; }
+  .op-vtotal {
+    background: var(--al);
+    border: 1px solid var(--ab);
+    border-radius: var(--rs);
+    padding: 8px 12px;
+    text-align: center;
+    font-family: var(--H);
+  }
+  .op-vtotal.gv { background: var(--gl); border-color: var(--gb); }
+  .op-vtotal.empty { background: var(--s2); border-color: var(--border); }
+  .op-vtotal-v { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .op-vtotal.gv .op-vtotal-v { color: var(--green); }
+  .op-vtotal.empty .op-vtotal-v { color: var(--text3); font-size: 14px; font-weight: 400; }
+  .op-vtotal-l { font-size: 11px; color: var(--text3); }
+
+  @media (max-width: 600px) {
+    .op-vcard-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   .batch-note { background: var(--al); border: 1px solid var(--ab); border-radius: var(--rs); padding: 10px 12px; font-size: 12px; color: var(--text2); margin-bottom: 12px; }
   .batch-note b { color: var(--accent); font-family: var(--H); }
 
@@ -576,23 +647,11 @@
         Semua kolom <b>opsional</b>. Isi sesuai kondisi fisik di gudang. Kolom <b>Total Langsung</b> bisa diisi jika angka total sudah diketahui.
       </div>
 
-      <div class="vt-wrap">
-        <div class="vt-head-bar">
-          <div class="vt-pname" id="vt-pname"></div>
-          <div class="vt-psub" id="vt-psub"></div>
-        </div>
-        <!-- desktop col header -->
-        <div class="vt-col-head">
-          <div class="vth">Varian</div>
-          <div class="vth c">Isi/Dus</div>
-          <div class="vth c">Dus Penuh</div>
-          <div class="vth c">Pcs Terbuka</div>
-          <div class="vth c">Pcs Eceran</div>
-          <div class="vth c">Total Langsung</div>
-          <div class="vth c">Total Pcs</div>
-        </div>
-        <div id="vt-body"></div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;box-shadow:var(--sh);">
+        <div id="vt-pname" style="font-family:var(--H);font-size:14px;font-weight:700;"></div>
+        <div id="vt-psub" style="font-size:11px;color:var(--text3);margin-top:2px;"></div>
       </div>
+      <div id="vt-body"></div>
 
       <div style="display:flex;gap:8px;">
         <button class="btn bp" style="flex:1" onclick="simpanBatch()">Simpan Opname</button>
@@ -1144,16 +1203,16 @@ function buildSelProduk() {
 function loadVarian() {
   var nama = document.getElementById('sel-produk').value;
   var wrap = document.getElementById('varian-wrap');
-  if(!nama){ wrap.style.display = 'none'; return; }
+  if(!nama){ wrap.style.display='none'; return; }
   var plist = gP().filter(function(p){ return p.nama===nama; });
-  if(!plist.length){ wrap.style.display = 'none'; return; }
+  if(!plist.length){ wrap.style.display='none'; return; }
 
   var brands = [...new Set(plist.map(function(p){ return p.brand; }).filter(Boolean))];
-  var cats = [...new Set(plist.map(function(p){ return p.kategori; }).filter(Boolean))];
+  var cats   = [...new Set(plist.map(function(p){ return p.kategori; }).filter(Boolean))];
   document.getElementById('vt-pname').textContent = nama;
   var sub = [];
   if(brands.length) sub.push('Brand: '+brands.join(', '));
-  if(cats.length) sub.push('Kategori: '+cats.join(', '));
+  if(cats.length)   sub.push('Kategori: '+cats.join(', '));
   sub.push(plist.length+' varian');
   document.getElementById('vt-psub').textContent = sub.join(' | ');
 
@@ -1161,134 +1220,88 @@ function loadVarian() {
   body.innerHTML = '';
 
   plist.forEach(function(p){
-    // Desktop row
-    var dr = document.createElement('div');
-    dr.className = 'vt-row-desktop';
-    dr.dataset.pid = p.id;
     var pid = p.id;
-    dr.innerHTML =
-      '<div class="vtd">'+
-        '<div class="vt-vname"><span class="badge bb">'+esc(p.varian)+'</span></div>'+
-        '<div class="vt-vdet">'+p.isi+' '+esc(p.satuan)+'/dus'+(p.brand?' &middot; '+esc(p.brand):'')+
-        '</div>'+
-      '</div>'+
-      '<div class="vtd" style="text-align:center;font-family:var(--H);font-weight:600;">'+p.isi+'</div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-dus" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'dus\',this.value);rc(\''+pid+'\')"><div class="vt-hint">dus penuh</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-buka" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'buka\',this.value);rc(\''+pid+'\')"><div class="vt-hint">pcs terbuka</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-ecer" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'ecer\',this.value);rc(\''+pid+'\')"><div class="vt-hint">eceran</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp direct" id="d-'+pid+'-direct" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'direct\',this.value);rc(\''+pid+'\')"><div class="vt-hint g">total langsung</div></div>'+
-      '<div class="vtd">'+
-        '<div class="vt-total empty" id="tot-'+pid+'">-</div>'+
-        '<div class="vt-src" id="src-'+pid+'"></div>'+
-      '</div>';
-    body.appendChild(dr);
-
-    // Mobile row
-    var mr = document.createElement('div');
-    mr.className = 'vt-row-mobile';
-    mr.dataset.pid = pid;
-    mr.innerHTML =
-      '<div class="vt-mob-head">'+
+    var card = document.createElement('div');
+    card.className = 'op-vcard';
+    card.dataset.pid = pid;
+    card.innerHTML =
+      '<div class="op-vcard-head">'+
         '<div>'+
           '<span class="badge bb">'+esc(p.varian)+'</span>'+
-          '<span style="font-size:11px;color:var(--text3);margin-left:8px;">'+p.isi+' '+esc(p.satuan)+'/dus</span>'+
+          (p.brand ? '<span class="pill" style="margin-left:6px;">'+esc(p.brand)+'</span>' : '')+
+        '</div>'+
+        '<div class="op-vcard-meta">1 dus = '+p.isi+' '+esc(p.satuan)+'</div>'+
+      '</div>'+
+      '<div class="op-vcard-grid">'+
+        '<div class="op-vf">'+
+          '<div class="op-vf-lbl">Dus Penuh</div>'+
+          '<input type="number" class="op-vinp" id="d-'+pid+'-dus" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\')">'+
+          '<div class="op-vf-sub">1 dus = '+p.isi+' '+esc(p.satuan)+'</div>'+
+        '</div>'+
+        '<div class="op-vf">'+
+          '<div class="op-vf-lbl">Pcs Terbuka</div>'+
+          '<input type="number" class="op-vinp" id="d-'+pid+'-buka" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\')">'+
+          '<div class="op-vf-sub">sisa isi dus terbuka</div>'+
+        '</div>'+
+        '<div class="op-vf">'+
+          '<div class="op-vf-lbl">Pcs Eceran</div>'+
+          '<input type="number" class="op-vinp" id="d-'+pid+'-ecer" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\')">'+
+          '<div class="op-vf-sub">satuan lepas</div>'+
+        '</div>'+
+        '<div class="op-vf">'+
+          '<div class="op-vf-lbl" style="color:var(--green);">Total Langsung</div>'+
+          '<input type="number" class="op-vinp op-vinp-direct" id="d-'+pid+'-direct" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\')">'+
+          '<div class="op-vf-sub" style="color:var(--green);">isi jika sudah tahu total</div>'+
         '</div>'+
       '</div>'+
-      '<div class="vt-mob-grid">'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Dus Penuh</div><input type="number" class="vt-inp" id="m-'+pid+'-dus" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'dus\',this.value);rc(\''+pid+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Terbuka</div><input type="number" class="vt-inp" id="m-'+pid+'-buka" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'buka\',this.value);rc(\''+pid+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Eceran</div><input type="number" class="vt-inp" id="m-'+pid+'-ecer" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'ecer\',this.value);rc(\''+pid+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl" style="color:var(--green);">Total Langsung</div><input type="number" class="vt-inp direct" id="m-'+pid+'-direct" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'direct\',this.value);rc(\''+pid+'\')"></div>'+
-      '</div>'+
-      '<div class="vt-mob-total empty" id="tot-'+pid+'m">'+
-        '<div class="vt-mob-total-v" id="totv-'+pid+'m">-</div>'+
-        '<div class="vt-mob-total-l" id="toth-'+pid+'m">Total Pcs</div>'+
+      '<div class="op-vtotal empty" id="tot-'+pid+'">'+
+        '<span class="op-vtotal-v" id="totv-'+pid+'">-</span>'+
+        '<span class="op-vtotal-l" id="totl-'+pid+'"> Total Pcs</span>'+
       '</div>';
-    body.appendChild(mr);
+    body.appendChild(card);
   });
 
   wrap.style.display = 'block';
 }
 
-function syncInp(pid, field, val) {
-  var dEl = document.getElementById('d-'+pid+'-'+field);
-  var mEl = document.getElementById('m-'+pid+'-'+field);
-  if(dEl && dEl !== event.target) dEl.value = val;
-  if(mEl && mEl !== event.target) mEl.value = val;
-}
-
-function getInpVal(pid, field) {
-  var dEl = document.getElementById('d-'+pid+'-'+field);
-  var mEl = document.getElementById('m-'+pid+'-'+field);
-  if(dEl && dEl.value !== '') return dEl.value;
-  if(mEl && mEl.value !== '') return mEl.value;
-  return '';
+function gv(pid, field) {
+  var el = document.getElementById('d-'+pid+'-'+field);
+  return el ? el.value : '';
 }
 
 function rc(pid) {
   var p = gP().find(function(x){ return x.id===pid; });
   if(!p) return;
-
-  var vDus    = getInpVal(pid,'dus');
-  var vBuka   = getInpVal(pid,'buka');
-  var vEcer   = getInpVal(pid,'ecer');
-  var vDirect = getInpVal(pid,'direct');
-
-  var anyCalc = (vDus!==''||vBuka!==''||vEcer!=='');
-  var hasDirect = (vDirect!=='');
-  var total, src, isGreen=false;
-
+  var vDus=gv(pid,'dus'), vBuka=gv(pid,'buka'), vEcer=gv(pid,'ecer'), vDirect=gv(pid,'direct');
+  var anyCalc=(vDus!==''||vBuka!==''||vEcer!=='');
+  var hasDirect=(vDirect!=='');
+  var total, lbl, isGreen=false;
   if(hasDirect) {
-    total = parseInt(vDirect)||0;
-    src = 'dari total langsung';
-    isGreen = true;
+    total=parseInt(vDirect)||0; lbl=' (langsung)'; isGreen=true;
   } else if(anyCalc) {
     var d=parseInt(vDus)||0, b=parseInt(vBuka)||0, e=parseInt(vEcer)||0;
-    total = d*p.isi+b+e;
-    var parts=[];
-    if(d) parts.push('('+d+'\u00d7'+p.isi+')');
-    if(b) parts.push(b);
-    if(e) parts.push(e+' ecr');
-    src = parts.join('+')+' = '+total;
-  } else {
-    total = null; src = '';
-  }
-
-  var totD = document.getElementById('tot-'+pid);
-  if(totD) {
-    totD.textContent = total !== null ? total : '-';
-    totD.className = 'vt-total'+(total===null?' empty':isGreen?' gv':'');
-    var srcD = document.getElementById('src-'+pid);
-    if(srcD) srcD.textContent = src;
-  }
-
-  var totM  = document.getElementById('tot-'+pid+'m');
-  var totvM = document.getElementById('totv-'+pid+'m');
-  var tothM = document.getElementById('toth-'+pid+'m');
-  if(totM && totvM) {
-    totvM.textContent = total !== null ? total : '-';
-    totM.className = 'vt-mob-total'+(total===null?' empty':isGreen?' gv':'');
-    if(tothM) tothM.textContent = isGreen ? 'dari total langsung' : 'Total Pcs';
-  }
+    total=d*p.isi+b+e; lbl=' pcs';
+  } else { total=null; lbl=' Total Pcs'; }
+  var el=document.getElementById('tot-'+pid);
+  var elV=document.getElementById('totv-'+pid);
+  var elL=document.getElementById('totl-'+pid);
+  if(el) el.className='op-vtotal'+(total===null?' empty':isGreen?' gv':'');
+  if(elV) elV.textContent=total!==null?total:'-';
+  if(elL) elL.textContent=lbl;
 }
 
 function simpanBatch() {
-  var nama = document.getElementById('sel-produk').value;
+  var nama=document.getElementById('sel-produk').value;
   if(!nama){ toast('Pilih produk terlebih dahulu','err'); return; }
-  var plist = gP().filter(function(p){ return p.nama===nama; });
-  var opList = gO(); var saved = 0;
-
+  var plist=gP().filter(function(p){ return p.nama===nama; });
+  var opList=gO(); var saved=0;
   plist.forEach(function(p){
-    var vDus    = getInpVal(p.id,'dus');
-    var vBuka   = getInpVal(p.id,'buka');
-    var vEcer   = getInpVal(p.id,'ecer');
-    var vDirect = getInpVal(p.id,'direct');
+    var pid=p.id;
+    var vDus=gv(pid,'dus'), vBuka=gv(pid,'buka'), vEcer=gv(pid,'ecer'), vDirect=gv(pid,'direct');
     if(vDus===''&&vBuka===''&&vEcer===''&&vDirect==='') return;
-    var dus    = parseInt(vDus)||0;
-    var buka   = parseInt(vBuka)||0;
-    var ecer   = parseInt(vEcer)||0;
-    var direct = vDirect !== '' ? (parseInt(vDirect)||0) : null;
-    var total  = direct !== null ? direct : (dus*p.isi+buka+ecer);
+    var dus=parseInt(vDus)||0, buka=parseInt(vBuka)||0, ecer=parseInt(vEcer)||0;
+    var direct=vDirect!==''?(parseInt(vDirect)||0):null;
+    var total=direct!==null?direct:(dus*p.isi+buka+ecer);
     opList.push({
       id:uid(), productId:p.id, nama:p.nama, varian:p.varian,
       brand:p.brand||'', kategori:p.kategori||'', satuan:p.satuan,
@@ -1297,12 +1310,10 @@ function simpanBatch() {
     });
     saved++;
   });
-
   if(!saved){ toast('Tidak ada data yang diisi','err'); return; }
   sO(opList);
   toast(saved+' varian tersimpan','ok');
-  resetOpname();
-  renderTbOpname();
+  resetOpname(); renderTbOpname();
 }
 
 function resetOpname() {
