@@ -1165,6 +1165,7 @@ function loadVarian() {
     var dr = document.createElement('div');
     dr.className = 'vt-row-desktop';
     dr.dataset.pid = p.id;
+    var pid = p.id;
     dr.innerHTML =
       '<div class="vtd">'+
         '<div class="vt-vname"><span class="badge bb">'+esc(p.varian)+'</span></div>'+
@@ -1172,20 +1173,20 @@ function loadVarian() {
         '</div>'+
       '</div>'+
       '<div class="vtd" style="text-align:center;font-family:var(--H);font-weight:600;">'+p.isi+'</div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" data-f="dus" min="0" placeholder="-" oninput="rc(\''+p.id+'\')"><div class="vt-hint">dus penuh</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" data-f="buka" min="0" placeholder="-" oninput="rc(\''+p.id+'\')"><div class="vt-hint">pcs terbuka</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp" data-f="ecer" min="0" placeholder="-" oninput="rc(\''+p.id+'\')"><div class="vt-hint">eceran</div></div>'+
-      '<div class="vtd"><input type="number" class="vt-inp direct" data-f="direct" min="0" placeholder="-" oninput="rc(\''+p.id+'\')"><div class="vt-hint g">total langsung</div></div>'+
+      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-dus" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'dus\',this.value);rc(\''+pid+'\')"><div class="vt-hint">dus penuh</div></div>'+
+      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-buka" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'buka\',this.value);rc(\''+pid+'\')"><div class="vt-hint">pcs terbuka</div></div>'+
+      '<div class="vtd"><input type="number" class="vt-inp" id="d-'+pid+'-ecer" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'ecer\',this.value);rc(\''+pid+'\')"><div class="vt-hint">eceran</div></div>'+
+      '<div class="vtd"><input type="number" class="vt-inp direct" id="d-'+pid+'-direct" min="0" placeholder="-" oninput="syncInp(\''+pid+'\',\'direct\',this.value);rc(\''+pid+'\')"><div class="vt-hint g">total langsung</div></div>'+
       '<div class="vtd">'+
-        '<div class="vt-total empty" id="tot-'+p.id+'">-</div>'+
-        '<div class="vt-src" id="src-'+p.id+'"></div>'+
+        '<div class="vt-total empty" id="tot-'+pid+'">-</div>'+
+        '<div class="vt-src" id="src-'+pid+'"></div>'+
       '</div>';
     body.appendChild(dr);
 
     // Mobile row
     var mr = document.createElement('div');
     mr.className = 'vt-row-mobile';
-    mr.dataset.pid = p.id;
+    mr.dataset.pid = pid;
     mr.innerHTML =
       '<div class="vt-mob-head">'+
         '<div>'+
@@ -1194,14 +1195,14 @@ function loadVarian() {
         '</div>'+
       '</div>'+
       '<div class="vt-mob-grid">'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Dus Penuh</div><input type="number" class="vt-inp" data-f="dus" min="0" placeholder="0" oninput="rc(\''+p.id+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Terbuka</div><input type="number" class="vt-inp" data-f="buka" min="0" placeholder="0" oninput="rc(\''+p.id+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Eceran</div><input type="number" class="vt-inp" data-f="ecer" min="0" placeholder="0" oninput="rc(\''+p.id+'\')"></div>'+
-        '<div class="vt-mob-block"><div class="vt-mob-lbl" style="color:var(--green);">Total Langsung</div><input type="number" class="vt-inp direct" data-f="direct" min="0" placeholder="0" oninput="rc(\''+p.id+'\')"></div>'+
+        '<div class="vt-mob-block"><div class="vt-mob-lbl">Dus Penuh</div><input type="number" class="vt-inp" id="m-'+pid+'-dus" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'dus\',this.value);rc(\''+pid+'\')"></div>'+
+        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Terbuka</div><input type="number" class="vt-inp" id="m-'+pid+'-buka" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'buka\',this.value);rc(\''+pid+'\')"></div>'+
+        '<div class="vt-mob-block"><div class="vt-mob-lbl">Pcs Eceran</div><input type="number" class="vt-inp" id="m-'+pid+'-ecer" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'ecer\',this.value);rc(\''+pid+'\')"></div>'+
+        '<div class="vt-mob-block"><div class="vt-mob-lbl" style="color:var(--green);">Total Langsung</div><input type="number" class="vt-inp direct" id="m-'+pid+'-direct" min="0" placeholder="0" oninput="syncInp(\''+pid+'\',\'direct\',this.value);rc(\''+pid+'\')"></div>'+
       '</div>'+
-      '<div class="vt-mob-total empty" id="tot-'+p.id+'m">'+
-        '<div class="vt-mob-total-v" id="totv-'+p.id+'m">-</div>'+
-        '<div class="vt-mob-total-l" id="toth-'+p.id+'m">Total Pcs</div>'+
+      '<div class="vt-mob-total empty" id="tot-'+pid+'m">'+
+        '<div class="vt-mob-total-v" id="totv-'+pid+'m">-</div>'+
+        '<div class="vt-mob-total-l" id="toth-'+pid+'m">Total Pcs</div>'+
       '</div>';
     body.appendChild(mr);
   });
@@ -1209,22 +1210,32 @@ function loadVarian() {
   wrap.style.display = 'block';
 }
 
+function syncInp(pid, field, val) {
+  var dEl = document.getElementById('d-'+pid+'-'+field);
+  var mEl = document.getElementById('m-'+pid+'-'+field);
+  if(dEl && dEl !== event.target) dEl.value = val;
+  if(mEl && mEl !== event.target) mEl.value = val;
+}
+
+function getInpVal(pid, field) {
+  var dEl = document.getElementById('d-'+pid+'-'+field);
+  var mEl = document.getElementById('m-'+pid+'-'+field);
+  if(dEl && dEl.value !== '') return dEl.value;
+  if(mEl && mEl.value !== '') return mEl.value;
+  return '';
+}
+
 function rc(pid) {
   var p = gP().find(function(x){ return x.id===pid; });
   if(!p) return;
 
-  function getInp(f) {
-    var rows = document.querySelectorAll('[data-pid="'+pid+'"]');
-    for(var i=0;i<rows.length;i++){
-      var inp = rows[i].querySelector('[data-f="'+f+'"]');
-      if(inp) return inp.value;
-    }
-    return '';
-  }
+  var vDus    = getInpVal(pid,'dus');
+  var vBuka   = getInpVal(pid,'buka');
+  var vEcer   = getInpVal(pid,'ecer');
+  var vDirect = getInpVal(pid,'direct');
 
-  var vDus=getInp('dus'), vBuka=getInp('buka'), vEcer=getInp('ecer'), vDirect=getInp('direct');
-  var anyCalc=(vDus!==''||vBuka!==''||vEcer!=='');
-  var hasDirect=(vDirect!=='');
+  var anyCalc = (vDus!==''||vBuka!==''||vEcer!=='');
+  var hasDirect = (vDirect!=='');
   var total, src, isGreen=false;
 
   if(hasDirect) {
@@ -1246,17 +1257,17 @@ function rc(pid) {
   var totD = document.getElementById('tot-'+pid);
   if(totD) {
     totD.textContent = total !== null ? total : '-';
-    totD.className = 'vt-total' + (total===null?' empty':isGreen?' gv':'');
+    totD.className = 'vt-total'+(total===null?' empty':isGreen?' gv':'');
     var srcD = document.getElementById('src-'+pid);
     if(srcD) srcD.textContent = src;
   }
 
-  var totM = document.getElementById('tot-'+pid+'m');
+  var totM  = document.getElementById('tot-'+pid+'m');
   var totvM = document.getElementById('totv-'+pid+'m');
   var tothM = document.getElementById('toth-'+pid+'m');
   if(totM && totvM) {
     totvM.textContent = total !== null ? total : '-';
-    totM.className = 'vt-mob-total' + (total===null?' empty':isGreen?' gv':'');
+    totM.className = 'vt-mob-total'+(total===null?' empty':isGreen?' gv':'');
     if(tothM) tothM.textContent = isGreen ? 'dari total langsung' : 'Total Pcs';
   }
 }
@@ -1268,19 +1279,16 @@ function simpanBatch() {
   var opList = gO(); var saved = 0;
 
   plist.forEach(function(p){
-    function getInp(f) {
-      var rows = document.querySelectorAll('[data-pid="'+p.id+'"]');
-      for(var i=0;i<rows.length;i++){
-        var inp = rows[i].querySelector('[data-f="'+f+'"]');
-        if(inp) return inp.value;
-      }
-      return '';
-    }
-    var vDus=getInp('dus'), vBuka=getInp('buka'), vEcer=getInp('ecer'), vDirect=getInp('direct');
+    var vDus    = getInpVal(p.id,'dus');
+    var vBuka   = getInpVal(p.id,'buka');
+    var vEcer   = getInpVal(p.id,'ecer');
+    var vDirect = getInpVal(p.id,'direct');
     if(vDus===''&&vBuka===''&&vEcer===''&&vDirect==='') return;
-    var dus=parseInt(vDus)||0, buka=parseInt(vBuka)||0, ecer=parseInt(vEcer)||0;
+    var dus    = parseInt(vDus)||0;
+    var buka   = parseInt(vBuka)||0;
+    var ecer   = parseInt(vEcer)||0;
     var direct = vDirect !== '' ? (parseInt(vDirect)||0) : null;
-    var total = direct !== null ? direct : (dus*p.isi+buka+ecer);
+    var total  = direct !== null ? direct : (dus*p.isi+buka+ecer);
     opList.push({
       id:uid(), productId:p.id, nama:p.nama, varian:p.varian,
       brand:p.brand||'', kategori:p.kategori||'', satuan:p.satuan,
@@ -1444,29 +1452,34 @@ function doExport() {
     rows.push(['No','Nama Produk','Varian','Brand','Kategori','Satuan','Isi per Dus','Dus Penuh','Pcs Terbuka','Pcs Eceran','Total Langsung','Total Pcs','Tanggal Opname']);
     getLatest().forEach(function(d,i){
       var p=d.p, o=d.o;
-      rows.push([i+1, p.nama, p.varian, p.brand||'', p.kategori||'', p.satuan, p.isi,
-        o&&o.dusPenuh?o.dusPenuh:'',
-        o&&o.dusBukaPcs?o.dusBukaPcs:'',
-        o&&o.eceran?o.eceran:'',
-        o&&o.totalLangsung!==null&&o.totalLangsung!==undefined?o.totalLangsung:'',
-        o?o.totalPcs:'',
-        o?fd(o.timestamp):''
+      rows.push([
+        i+1, p.nama, p.varian, p.brand||'', p.kategori||'', p.satuan, p.isi,
+        o ? (o.dusPenuh||0) : '',
+        o ? (o.dusBukaPcs||0) : '',
+        o ? (o.eceran||0) : '',
+        (o && o.totalLangsung !== null && o.totalLangsung !== undefined) ? o.totalLangsung : '',
+        o ? o.totalPcs : '',
+        o ? fd(o.timestamp) : ''
       ]);
     });
   } else {
     rows.push(['No','Nama Produk','Varian','Brand','Kategori','Satuan','Isi per Dus','Dus Penuh','Pcs Terbuka','Pcs Eceran','Total Langsung','Total Pcs','Tanggal']);
     gO().slice().sort(function(a,b){ return b.timestamp-a.timestamp; }).forEach(function(o,i){
-      rows.push([i+1, o.nama, o.varian, o.brand||'', o.kategori||'', o.satuan, o.isiPerDus,
-        o.dusPenuh, o.dusBukaPcs, o.eceran,
-        o.totalLangsung!==null&&o.totalLangsung!==undefined?o.totalLangsung:'',
+      rows.push([
+        i+1, o.nama, o.varian, o.brand||'', o.kategori||'', o.satuan, o.isiPerDus,
+        o.dusPenuh||0, o.dusBukaPcs||0, o.eceran||0,
+        (o.totalLangsung !== null && o.totalLangsung !== undefined) ? o.totalLangsung : '',
         o.totalPcs, fd(o.timestamp)
       ]);
     });
   }
   if(rows.length <= 1){ toast('Tidak ada data untuk diekspor','err'); return; }
-  var csv = rows.map(function(r){ return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(','); }).join('\r\n');
+  var csv = 'sep=,\r\n' + rows.map(function(r){
+    return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(',');
+  }).join('\r\n');
   var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
-  var url = URL.createObjectURL(blob); var a = document.createElement('a');
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
   var d = new Date();
   var ts = d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
   a.href = url; a.download = 'stok_gudang_'+expMode+'_'+ts+'.csv'; a.click();
