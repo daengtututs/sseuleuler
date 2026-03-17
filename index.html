@@ -779,7 +779,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
     </div>
     <div class="stg-body">
 
-      <!-- TAB: UMUM -->
+      
       <div id="stg-umum" class="stg-sec active">
         <div class="stg-grp">
           <div class="stg-grp-title">Tampilan</div>
@@ -828,7 +828,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
         </div>
       </div>
 
-      <!-- TAB: TRANSFER DATA -->
+      
       <div id="stg-transfer" class="stg-sec">
         <div class="stg-grp">
           <div class="stg-grp-title">Ekspor ke Perangkat Lain</div>
@@ -857,7 +857,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
         </div>
       </div>
 
-      <!-- TAB: TENTANG -->
+      
       <div id="stg-tentang" class="stg-sec">
         <div class="about-logo">
           <div class="about-logo-txt">ailuasc<span>.</span></div>
@@ -1590,8 +1590,6 @@ function loadVarian(){
     var prevDirect=prev&&prev.totalLangsung!==null&&prev.totalLangsung!==undefined?prev.totalLangsung:'';
     var gridHtml='';
     if(levels){
-      // build multiplier chain: levels[0].isi * levels[1].isi * ... * p.isi = total base units per levels[0]
-      // Each level: nama, qty input, sub-label showing what 1 of this = next level
       levels.forEach(function(lv,li){
         var nextName=li+1<levels.length?levels[li+1].nama:p.satuan;
         var prevVal=prev&&prev.levelQtys&&prev.levelQtys[li]!==undefined?prev.levelQtys[li]:'';
@@ -1599,7 +1597,6 @@ function loadVarian(){
           '<input type="number" class="op-vinp op-vinp-lv" id="d-'+pid+'-lv'+li+'" min="0" placeholder="0" value="'+prevVal+'" inputmode="numeric" oninput="rcLv(\''+pid+'\')">'+
           '<div class="op-vf-sub">1 = '+lv.isi+' '+esc(nextName)+'</div></div>';
       });
-      // last standard level = satuan
       gridHtml+='<div class="op-vf"><div class="op-vf-lbl">'+esc(p.satuan)+' Lepas</div>'+
         '<input type="number" class="op-vinp op-vinp-lv" id="d-'+pid+'-lvecer" min="0" placeholder="0" value="'+prevEcer+'" inputmode="numeric" oninput="rcLv(\''+pid+'\')">'+
         '<div class="op-vf-sub">satuan lepas</div></div>';
@@ -1672,11 +1669,8 @@ function rcLv(pid){
   if(hasDirect){
     total=parseInt(vDirect)||0;isGreen=true;
   } else {
-    // compute multiplier for each level: mult[i] = levels[i].isi * levels[i+1].isi * ... * p.isi
     var mults=[];
     var m=1;
-    // base unit multiplier from p.isi is NOT used here — p.isi is lowest "dus" level
-    // multiplier chain: levels[0] contains levels[0].isi of levels[1], etc, last level contains lastLevel.isi of p.satuan
     for(var i=levels.length-1;i>=0;i--){mults[i]=m*levels[i].isi;m=mults[i];}
     total=0;
     var anyFilled=false;
@@ -1962,7 +1956,6 @@ document.getElementById('cfm-ok').addEventListener('click',function(){
 });
 
 function openModal(id){
-  // restore if was minimized
   if(minimizedModalId===id)restoreMinimizedModal();
   document.getElementById(id).classList.add('open');
   history.pushState({modal:id,screen:APP.screen,gid:APP.gid},'');
@@ -1971,7 +1964,6 @@ function openModal(id){
 function closeModal(id){
   var el=document.getElementById(id);
   if(!el||!el.classList.contains('open'))return;
-  // block closing if minimized — user must use Save/Cancel buttons
   if(minimizedModalId===id)return;
   el.classList.remove('open');
   if(history.state&&history.state.modal===id){history.back()}
@@ -1992,9 +1984,7 @@ document.addEventListener('keydown',function(e){
   if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();doRedo();return}
 });
 
-// Desktop keyboard → calculator (when calc is open, always intercept unless in input)
 document.addEventListener('keydown',function(e){
-// keyboard handled by cwInitDrag listener
 },true);
 
 document.querySelectorAll('.mov').forEach(function(m){
@@ -2150,7 +2140,6 @@ function pInfoGoOpname(){
   goToOpname(pInfoPid);
 }
 
-// ─── Calculator ───
 var CW={expr:'',afterEq:false};
 
 function cwEl(id){return document.getElementById(id)}
@@ -2263,7 +2252,6 @@ function cwToggle(ev){
 function cwSize(w){
   w=w||cwEl('cw');if(!w||w.classList.contains('fs'))return;
   var W=w.offsetWidth||240;
-  // padding=6 each side=12, gap=6*3=18 between 4 cols => (W-30)/4
   var cell=Math.floor((W-30)/4);
   cell=Math.max(42,Math.min(62,cell));
   var btnFs=Math.max(14,Math.min(20,Math.floor(cell*0.4)));
@@ -2282,7 +2270,6 @@ function cwFullscreen(){
     w.removeAttribute('style');
     w.style.display='';
     document.body.style.overflow='hidden';
-    // clear per-button sizes — CSS handles fs layout
     w.querySelectorAll('.cw-btn').forEach(function(b){b.style.cssText='';});
     var ne=cwEl('cw-num');if(ne)ne.style.fontSize='';
     w.style.removeProperty('--cell');
@@ -2351,7 +2338,6 @@ function cwInitDrag(){
   }
   function de(){drag=false;document.removeEventListener('mousemove',dm);document.removeEventListener('touchmove',dm);document.removeEventListener('mouseup',de);document.removeEventListener('touchend',de);}
   h.addEventListener('mousedown',ds);h.addEventListener('touchstart',ds,{passive:false});
-  // resize
   var rh=document.createElement('div');
   rh.style.cssText='position:absolute;bottom:0;right:0;width:18px;height:18px;cursor:se-resize;touch-action:none;z-index:1';
   rh.innerHTML='<svg style="position:absolute;bottom:3px;right:3px" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M7 1L1 7M7 4L4 7" stroke="rgba(255,255,255,.25)" stroke-width="1.3" stroke-linecap="round"/></svg>';
@@ -2361,7 +2347,6 @@ function cwInitDrag(){
   function rdm(e){if(!rs)return;var t=e.touches?e.touches[0]:e;var nw=Math.max(180,Math.min(400,rsW+(t.clientX-rsX)));w.style.width=nw+'px';cwSize(w);if(e.cancelable)e.preventDefault();}
   function rde(){rs=false;document.removeEventListener('mousemove',rdm);document.removeEventListener('touchmove',rdm);document.removeEventListener('mouseup',rde);document.removeEventListener('touchend',rde);}
   rh.addEventListener('mousedown',rds);rh.addEventListener('touchstart',rds,{passive:false});
-  // visualViewport reanchor
   if(window.visualViewport){
     window.visualViewport.addEventListener('resize',function(){
       if(w.classList.contains('fs'))return;
@@ -2371,7 +2356,6 @@ function cwInitDrag(){
       if(ct>max)w.style.top=Math.max(vv.offsetTop,max)+'px';
     });
   }
-  // auto-exit fs on desktop
   if(window.matchMedia){
     window.matchMedia('(min-width:768px)').addEventListener('change',function(e){
       if(e.matches)cwExitFs();
@@ -2379,7 +2363,6 @@ function cwInitDrag(){
   }
 }
 
-// keyboard → calc
 document.addEventListener('keydown',function(e){
   var w=cwEl('cw');
   if(!w||!w.classList.contains('vis'))return;
@@ -2396,9 +2379,6 @@ document.addEventListener('keydown',function(e){
   if(k==='c'||k==='C'){cw('C');e.preventDefault();return}
 },true);
 
-// ── SETTINGS ──
-// Simple keyword rules - no regex exposed to user
-// kw = keyword suffix user types (case-insensitive), lbl = formatted label, satuan = auto satuan
 var STG_UNIT_DEFAULTS=[
   {kw:'kg',lbl:'Kilogram',satuan:'sachet'},
   {kw:'gr',lbl:'Gram',satuan:'sachet'},
@@ -2421,21 +2401,16 @@ function openSettings(tab){
   var sh=document.getElementById('stg-sheet');
   if(!sh)return;
   sh.classList.add('open');
-  // sync dark toggle
   var dt=document.getElementById('stg-dark-toggle');
   if(dt)dt.checked=document.body.classList.contains('dark');
-  // sync gudang name
   if(APP.gid){
     var g=gG().find(function(x){return x.id===APP.gid});
     var lbl=document.getElementById('stg-gudang-name-lbl');
     if(lbl&&g)lbl.textContent=g.nama;
   }
-  // calc storage
   stgCalcStorage();
-  // render unit map and satuan
   stgRenderUnitMap();
   stgRenderSatuanList();
-  // activate tab
   if(tab){
     var btn=document.querySelector('.stg-tab[onclick*="\''+tab+'\'"]');
     if(btn)stgTab(tab,btn);
@@ -2518,7 +2493,6 @@ function stgAddUnitRow(){
   cfg.unitMap.push({kw:'',lbl:'',satuan:'pcs'});
   sSTG(cfg);
   stgRenderUnitMap();
-  // focus last kw input
   setTimeout(function(){
     var cards=document.querySelectorAll('.stg-unit-card');
     if(cards.length){var inp=cards[cards.length-1].querySelector('.stg-unit-kw');if(inp)inp.focus();}
@@ -2562,7 +2536,6 @@ function stgDelSatuan(i){
   var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS.slice();
   if(list.length<=1){toast('Minimal 1 satuan harus ada','err');return;}
   var nama=list[i];
-  // Warn if used by any product
   var usedBy=gP().filter(function(p){return p.satuan===nama});
   if(usedBy.length>0){
     openCfm('Hapus Satuan "'+nama+'"',
@@ -2582,7 +2555,6 @@ function stgShowPrivacy(){
   document.getElementById('stg-privacy-sheet').classList.add('open');
 }
 
-// Export/Import data transfer
 function stgGenExport(){
   try{
     var data={v:2,ts:Date.now(),gudang:gG(),prods:{},ops:{}};
@@ -2635,14 +2607,12 @@ function stgDoImport(){
   }catch(e){toast('Kode tidak valid atau rusak','err');}
 }
 
-// Override satOpts to use settings satuan list
 function satOpts(sel){
   var cfg=gSTG();
   var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS;
   return list.map(function(s){return '<option value="'+s+'"'+(sel===s?' selected':'')+'>'+s+'</option>'}).join('');
 }
 
-// Override autoSatuan to use settings unit map
 function autoSatuan(val,satuanEl,onlyIfDefault){
   if(!satuanEl)return;
   if(onlyIfDefault&&satuanEl.value!=='pcs')return;
@@ -2653,7 +2623,6 @@ function autoSatuan(val,satuanEl,onlyIfDefault){
     var kw=map[i].kw||map[i].pat||'';
     if(!kw)continue;
     try{
-      // Build regex: number + optional space + keyword at end, case-insensitive
       var rxStr='\\d+(?:\\.\\d+)?\\s*'+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b';
       var rx=new RegExp(rxStr,'i');
       if(rx.test(v)){
@@ -2668,7 +2637,6 @@ function autoSatuan(val,satuanEl,onlyIfDefault){
   }
 }
 
-// Override fmtUnit to use settings unit map
 function fmtUnit(text){
   if(!text)return text;
   var t=text.trim();
@@ -2883,7 +2851,6 @@ function triggerUndo(){
 }
 
 function closeProdukModal(){
-  // If minimized, restore first then show discard bar
   if(minimizedModalId==='m-produk'){restoreMinimizedModal();}
   var dirty=APP.formDirty;
   var bar=document.getElementById('produk-discard-bar');
