@@ -6,7 +6,8 @@
 <title>StokGudang</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fa;--white:#fff;--s2:#f0f2f8;--border:#e2e6f0;--border2:#c8cee0;--text:#111827;--text2:#4b5563;--text3:#9ca3af;--accent:#3b6ef5;--al:#eef2ff;--ab:#c7d4fd;--green:#16a34a;--gl:#f0fdf4;--gb:#bbf7d0;--red:#dc2626;--rl:#fef2f2;--rb:#fecaca;--orange:#ea580c;--ol:#fff7ed;--ob:#fed7aa;--r:8px;--rs:5px;--sh:0 1px 3px rgba(0,0,0,.07);--sh2:0 4px 16px rgba(0,0,0,.08);--shx:0 8px 32px rgba(0,0,0,.12);--H:'Poppins',sans-serif;--B:'DM Sans',sans-serif}
+:root{--bg:#f5f6fa;--white:#fff;--s2:#f0f2f8;--border:#e2e6f0;--border2:#c8cee0;--text:#111827;--text2:#374151;--text3:#6b7280;--accent:#3b6ef5;--al:#eef2ff;--ab:#c7d4fd;--green:#16a34a;--gl:#f0fdf4;--gb:#bbf7d0;--red:#dc2626;--rl:#fef2f2;--rb:#fecaca;--orange:#ea580c;--ol:#fff7ed;--ob:#fed7aa;--r:8px;--rs:5px;--sh:0 1px 3px rgba(0,0,0,.07);--sh2:0 4px 16px rgba(0,0,0,.08);--shx:0 8px 32px rgba(0,0,0,.12);--H:'Poppins',sans-serif;--B:'DM Sans',sans-serif}
+body.dark{--bg:#0f1117;--white:#1a1d27;--s2:#1f2333;--border:#2d3348;--border2:#3a4060;--text:#f1f5f9;--text2:#cbd5e1;--text3:#94a3b8;--accent:#6b8ffa;--al:#1e2a4a;--ab:#2d3f6e;--green:#22c55e;--gl:#0a2e1a;--gb:#166534;--red:#f87171;--rl:#2d1515;--rb:#5c2020;--orange:#fb923c;--ol:#2d1a08;--ob:#7c3800;--sh:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 16px rgba(0,0,0,.4);--shx:0 8px 32px rgba(0,0,0,.5)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--B);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -18,7 +19,7 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 1
 .hbtn:active{background:var(--s2)}
 .hbtn:disabled{opacity:.28;pointer-events:none;cursor:default}
 .hbtn.active{background:var(--al);color:var(--accent)}
-.hbtns-right{display:flex;align-items:center;gap:0;flex-shrink:0}
+.hbtns-right{display:flex;align-items:center;flex-shrink:0}
 .h-gudang-name{font-family:var(--H);font-size:14px;font-weight:700;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px}
 nav{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 4px}
 nav::-webkit-scrollbar{display:none}
@@ -133,11 +134,17 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .ring-vtotal{font-family:var(--H);font-size:18px;font-weight:700;color:var(--accent);line-height:1}
 .ring-vtotal.na{color:var(--text3);font-size:12px;font-weight:400;font-family:var(--B)}
 .ring-vtgl{font-size:10px;color:var(--text3);margin-top:3px}
-.mov{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:200;align-items:flex-end;justify-content:center;padding:0}
+.mov{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:200;align-items:flex-end;justify-content:center;padding:0;touch-action:none}
 .mov.open{display:flex}
-.modal{background:var(--white);border-radius:16px 16px 0 0;padding:20px;width:100%;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:var(--shx);animation:slideUp .22s ease}
+.mov.minimized{background:transparent;pointer-events:none;align-items:flex-end}
+.mov.minimized .modal{pointer-events:auto;transform:translateY(calc(100% - 44px));border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.18)}
+.modal{background:var(--white);border-radius:16px 16px 0 0;padding:20px;width:100%;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:var(--shx);animation:slideUp .22s ease;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.modal-handle-wrap{display:flex;align-items:center;justify-content:center;margin:-4px 0 12px;padding:8px 0;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
+.modal-handle-wrap:active{cursor:grabbing}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:4px}
+.modal-min-tab{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:var(--white);border:1px solid var(--border);border-radius:12px 12px 0 0;padding:8px 20px 6px;font-family:var(--H);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;z-index:201;box-shadow:0 -2px 12px rgba(0,0,0,.1);white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;max-width:280px;text-overflow:ellipsis;overflow:hidden;text-align:center}
+.modal-min-tab.show{display:flex;align-items:center;gap:6px}
 @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:4px;margin:0 auto 16px}
 .mt{font-family:var(--H);font-size:16px;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .ma{display:flex;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
 .ma .btn{flex:1}
@@ -250,28 +257,99 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 .undo-bar-btn:active{background:rgba(255,255,255,.12)}
 .undo-prog{height:3px;background:rgba(255,255,255,.15)}
 .undo-fill{height:100%;background:var(--accent);width:100%}
-.calc-popup{position:fixed;top:58px;right:8px;width:220px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shx);z-index:500;overflow:hidden;display:none}
-.calc-popup.show{display:block;animation:calcIn .15s ease}
-@keyframes calcIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-.calc-display{background:#111827;padding:12px 14px 10px;text-align:right;user-select:none}
-.calc-expr{font-size:12px;color:rgba(255,255,255,.4);min-height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--B)}
-.calc-main{font-family:var(--H);font-size:26px;font-weight:700;color:#fff;line-height:1.2;min-height:32px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.calc-preview{font-size:11px;color:rgba(255,255,255,.35);min-height:15px;font-family:var(--B)}
-.cbg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2)}
-.cbtn{background:var(--white);border:none;font-family:var(--H);font-size:15px;font-weight:600;padding:13px 0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;color:var(--text);transition:background .08s;user-select:none;-webkit-user-select:none}
-.cbtn:active{background:var(--s2)}
-.cbtn.cop{color:var(--accent)}
-.cbtn.cfn{color:var(--text2);font-size:13px;font-weight:700;background:var(--s2)}
-.cbtn.cfn:active{background:var(--border)}
-.cbtn.ceq{background:var(--accent);color:#fff}
-.cbtn.ceq:active{background:#2d5de0}
-.cbtn.ccl{color:var(--red);background:var(--s2)}
-.cbtn.ccl:active{background:var(--rb)}
+.cw{position:fixed;top:64px;right:12px;width:240px;background:#000;border-radius:14px;box-shadow:0 0 0 .5px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.8);z-index:99999;overflow:hidden;display:none;flex-direction:column;user-select:none;-webkit-user-select:none}
+.cw.vis{display:flex;animation:cwIn .18s ease}
+.cw-bar{height:28px;display:flex;align-items:center;padding:0 8px;background:#1c1c1e;cursor:move;touch-action:none;border-bottom:.5px solid rgba(255,255,255,.07);flex-shrink:0}
+.cw-tl{display:flex;align-items:center;gap:7px}
+.cw-dot{width:22px;height:22px;background:none;border:none;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cw-dot span{width:11px;height:11px;border-radius:50%;display:block;pointer-events:none}
+.cw-dot.red span{background:#ff5f57}
+.cw-dot.yel span{background:#febc2e}
+.cw-dot.grn span{background:#28c840}
+.cw-dot:active span{filter:brightness(.68)}
+@media(min-width:768px){.cw-dot.grn{pointer-events:none}}
+.cw-ttl{flex:1;text-align:center;font-size:11px;font-weight:500;color:rgba(255,255,255,.4);font-family:-apple-system,sans-serif}
+.cw-disp{background:#000;padding:6px 14px 8px;text-align:right;flex-shrink:0}
+.cw-expr{font-size:11px;color:rgba(255,255,255,.28);height:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:-apple-system,sans-serif}
+.cw-num{font-size:40px;font-weight:200;color:#fff;line-height:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.02em;font-family:-apple-system,sans-serif}
+.cw-pre{font-size:10px;color:rgba(255,255,255,.2);height:13px;font-family:-apple-system,sans-serif}
+.cw-grid{display:grid;grid-template-columns:repeat(4,var(--cell,52px));grid-auto-rows:var(--cell,52px);gap:6px;padding:6px;flex-shrink:0;justify-content:center}
+.cw-btn{background:#333335;border:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;color:#fff;display:flex;align-items:center;justify-content:center;font-family:-apple-system,sans-serif;font-size:17px;font-weight:400;transition:filter .08s;border-radius:50%;width:var(--cell,52px);height:var(--cell,52px)}
+.cw-btn:active{filter:brightness(1.55)}
+.cw-btn.op{background:#ff9f0a}
+.cw-btn.fn{background:#a5a5a5;color:#000}
+.cw-btn.eq{background:#ff9f0a}
+.cw-btn.cl{background:#a5a5a5;color:#000;font-weight:600}
+.cw-btn svg{pointer-events:none;flex-shrink:0}
+.cw.fs{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100dvw!important;height:100dvh!important;border-radius:0!important}
+.cw.fs .cw-disp{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 20px 10px}
+.cw.fs .cw-num{font-size:clamp(44px,11vw,80px)}
+.cw.fs .cw-grid{grid-template-columns:repeat(4,var(--cell,60px));grid-auto-rows:var(--cell,60px)}
+@keyframes cwIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .hbtn:disabled{opacity:.28;pointer-events:none;cursor:default}
 .hbtn.active{background:var(--al);color:var(--accent)}
-.hbtns-right{display:flex;align-items:center;flex-shrink:0}
 .discard-bar{background:var(--ol);border-top:2px solid var(--ob);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}
 .discard-msg{font-family:var(--H);font-size:13px;font-weight:600;color:var(--orange)}
+.lvl-row{display:grid;grid-template-columns:1fr 80px 24px;gap:6px;align-items:center;margin-bottom:6px}
+.lvl-del{background:none;border:1px solid var(--rb);border-radius:var(--rs);color:var(--red);width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.lvl-del:active{background:var(--red);color:#fff}
+.op-levels-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+/* ── Settings Sheet ── */
+.stg-sheet{position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.stg-sheet.open{display:flex}
+.stg-box{background:var(--white);width:100%;max-height:94vh;border-radius:16px 16px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -4px 32px rgba(0,0,0,.15);animation:slideUp .22s ease}
+.stg-handle{display:flex;justify-content:center;padding:10px 0 6px;flex-shrink:0;cursor:pointer}
+.stg-handle span{width:36px;height:4px;background:var(--border2);border-radius:4px;display:block}
+.stg-head{padding:4px 20px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--border)}
+.stg-title{font-family:var(--H);font-size:16px;font-weight:700}
+.stg-close{background:none;border:none;cursor:pointer;color:var(--text3);padding:8px;border-radius:var(--rs);-webkit-tap-highlight-color:transparent;font-size:18px;line-height:1}
+.stg-tabs{display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border);padding:0 12px}
+.stg-tabs::-webkit-scrollbar{display:none}
+.stg-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);font-family:var(--H);font-size:12px;font-weight:500;padding:10px 12px;cursor:pointer;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.stg-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.stg-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 40px}
+.stg-sec{display:none}
+.stg-sec.active{display:block}
+.stg-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:12px}
+.stg-row:last-child{border-bottom:none}
+.stg-row-left{flex:1;min-width:0}
+.stg-row-lbl{font-family:var(--H);font-size:13px;font-weight:600;color:var(--text)}
+.stg-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.stg-grp{margin-bottom:20px}
+.stg-grp-title{font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.toggle-wrap{position:relative;width:44px;height:26px;flex-shrink:0}
+.toggle-wrap input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:var(--border2);border-radius:13px;cursor:pointer;transition:background .2s}
+.toggle-slider::before{content:'';position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-wrap input:checked+.toggle-slider{background:var(--accent)}
+.toggle-wrap input:checked+.toggle-slider::before{transform:translateX(18px)}
+.stg-unit-map{display:flex;flex-direction:column;gap:4px}
+.stg-unit-card{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;transition:border-color .15s}
+.stg-unit-card:focus-within{border-color:var(--accent)}
+.stg-unit-kw{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:5px 10px;font-family:var(--H);font-size:13px;font-weight:700;color:var(--accent);width:72px;text-align:center;outline:none;transition:border-color .15s}
+.stg-unit-kw:focus{border-color:var(--accent);background:var(--al)}
+.stg-unit-arr{color:var(--text3);flex-shrink:0;font-size:16px}
+.stg-unit-lbl{flex:1;border:none;background:transparent;font-size:13px;font-family:var(--B);color:var(--text);outline:none;padding:0}
+.stg-unit-lbl:focus{color:var(--accent)}
+.stg-unit-sat{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:4px 6px;font-size:11px;font-family:var(--H);color:var(--text2);outline:none;-webkit-appearance:none;width:70px}
+.stg-unit-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:4px;border-radius:var(--rs);-webkit-tap-highlight-color:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.stg-unit-del:hover{color:var(--red);background:var(--rl)}
+.about-logo{text-align:center;padding:20px 0 16px}
+.about-logo-txt{font-family:var(--H);font-size:28px;font-weight:700;letter-spacing:-.03em}
+.about-logo-txt span{color:var(--accent)}
+.about-version{font-size:12px;color:var(--text3);margin-top:4px}
+.about-link{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;color:var(--text)}
+.about-link:last-child{border-bottom:none}
+.about-link-lbl{font-family:var(--H);font-size:13px;font-weight:600}
+.about-link-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.about-link-arrow{color:var(--text3);flex-shrink:0}
+.xfer-area{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;font-size:11px;font-family:monospace;word-break:break-all;color:var(--text2);max-height:80px;overflow-y:auto;cursor:text;user-select:all;line-height:1.5}
+.stg-sat-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;min-height:36px}
+.stg-sat-tag{display:inline-flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:5px 12px 5px 12px;font-family:var(--H);font-size:12px;font-weight:600;color:var(--text2);transition:border-color .15s}
+.stg-sat-tag:hover{border-color:var(--border2)}
+.stg-sat-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:0 0 0 2px;line-height:1;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;width:16px;height:16px;justify-content:center;border-radius:50%;transition:background .1s,color .1s}
+.stg-sat-del:hover{background:var(--red);color:#fff}
+@media(min-width:768px){.stg-box{max-width:560px;border-radius:var(--r);margin:auto;max-height:88vh}.stg-sheet{align-items:center}}
 @media(min-width:768px){
   main{padding:24px;padding-bottom:72px}
   header{padding:0 28px}
@@ -315,6 +393,10 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
   <header>
     <div class="logo">Stok<span>Gudang</span></div>
     <div class="hdate" id="hdate"></div>
+    <button class="hbtn" id="btn-darkmode-home" onclick="toggleDark()" title="Ganti Tema" style="margin-left:4px">
+      <svg id="ico-dark-home" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg id="ico-light-home" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </header>
   <main style="max-width:960px">
     <div class="home-header">
@@ -338,10 +420,14 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
       <button class="hbtn" id="btn-redo" onclick="doRedo()" title="Redo (Ctrl+Y)" disabled>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 019-9 9 9 0 016 2.3l3 2.7"/></svg>
       </button>
-      <button class="hbtn" id="btn-calc" onclick="toggleCalc()" title="Kalkulator">
+      <button class="hbtn" id="btn-calc" onclick="cwToggle(event)" title="Kalkulator">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="16" y2="18"/></svg>
       </button>
-      <button class="hbtn" onclick="openEditGudang()" title="Pengaturan Gudang">
+      <button class="hbtn" id="btn-darkmode" onclick="toggleDark()" title="Ganti Tema">
+        <svg id="ico-dark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="ico-light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="hbtn" onclick="openSettings()" title="Pengaturan">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
     </div>
@@ -460,6 +546,10 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Unduh File CSV
         </button>
+        <button class="btn bo bfull" style="margin-top:8px" onclick="openSettings('transfer')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Bagikan Data ke Perangkat Lain
+        </button>
       </div>
       <div class="div"></div>
       <div class="sec-label">Manajemen Data</div>
@@ -488,7 +578,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div class="mov" id="m-gudang">
   <div class="modal" style="max-width:420px">
-    <div class="modal-handle"></div>
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
     <div class="mt" id="m-gudang-title">Buat Gudang Baru</div>
     <input type="hidden" id="eid-gudang">
     <div class="fg">
@@ -504,7 +594,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div class="mov" id="m-produk">
   <div class="modal" style="max-width:700px">
-    <div class="modal-handle"></div>
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
     <div class="mt" id="m-produk-title">Tambah Produk</div>
     <input type="hidden" id="eid-produk">
     <div class="fg" style="margin-bottom:14px">
@@ -533,6 +623,15 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
         </div>
         <div class="fg"><label>Isi per Dus <span style="color:var(--red)">*</span></label><input type="number" id="f-isi" min="1" placeholder="cth: 40"></div>
         <div class="fg span2"><label>Keterangan</label><textarea id="f-ket" rows="2" placeholder="opsional" style="resize:vertical"></textarea></div>
+        <div class="fg span2">
+          <label>Kemasan Bertingkat <span style="font-weight:400;text-transform:none;letter-spacing:0;font-family:var(--B);color:var(--text3)">(opsional)</span></label>
+          <div id="f-levels-wrap"></div>
+          <button type="button" class="btn bo bsm" onclick="addLevelRow('f-levels-wrap')" style="margin-top:4px">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Level Kemasan
+          </button>
+          <div class="hint">Contoh: Dus Besar=5 Dus Kecil, Dus Kecil=10 pcs. Tingkat terbawah dihitung sebagai satuan.</div>
+        </div>
       </div>
     </div>
     <div class="ma">
@@ -551,7 +650,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div class="mov" id="m-rename">
   <div class="modal" style="max-width:420px">
-    <div class="modal-handle"></div>
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
     <div class="mt">Ganti Nama Produk</div>
     <input type="hidden" id="rename-old">
     <div class="fg" style="margin-bottom:4px">
@@ -568,7 +667,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div class="mov" id="m-cfm">
   <div class="modal" style="max-width:420px">
-    <div class="modal-handle"></div>
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
     <div class="mt" id="cfm-t">Konfirmasi</div>
     <div class="cb" id="cfm-b"></div>
     <div class="ma">
@@ -580,7 +679,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div class="mov" id="m-editop">
   <div class="modal" style="max-width:500px">
-    <div class="modal-handle"></div>
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
     <div class="mt" id="editop-title">Edit Data Opname</div>
     <input type="hidden" id="eid-op">
     <div id="editop-info" style="background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;margin-bottom:14px;font-family:var(--H);font-size:13px;font-weight:600"></div>
@@ -602,6 +701,23 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
   </div>
 </div>
 
+<div class="mov" id="m-pinfo">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-handle-wrap" id="mh-REPLACEME" ontouchstart="modalDragStart(event,this.closest('.mov'))" onmousedown="modalDragStart(event,this.closest('.mov'))"><div class="modal-handle"></div></div>
+    <div class="mt" id="pinfo-title">Info Produk</div>
+    <div id="pinfo-body"></div>
+    <div class="ma">
+      <button class="btn bo" onclick="closeModal('m-pinfo')">Tutup</button>
+      <button class="btn bp" id="pinfo-opname-btn" onclick="pInfoGoOpname()">Isi Opname</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-min-tab" class="modal-min-tab" onclick="restoreMinimizedModal()">
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+  <span id="modal-min-label">Modal</span>
+</div>
+
 <div id="undo-bar" class="undo-bar">
   <div class="undo-bar-inner">
     <span id="undo-bar-msg" class="undo-bar-msg"></span>
@@ -610,33 +726,192 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
   <div class="undo-prog"><div id="undo-fill" class="undo-fill"></div></div>
 </div>
 
-<div id="calc-popup" class="calc-popup">
-  <div class="calc-display">
-    <div id="calc-expr" class="calc-expr">0</div>
-    <div id="calc-main" class="calc-main">0</div>
-    <div id="calc-preview" class="calc-preview"></div>
+<div id="cw" class="cw">
+  <div class="cw-bar" id="cw-drag">
+    <div class="cw-tl">
+      <button class="cw-dot red" ontouchend="event.preventDefault();event.stopPropagation();cwToggle();" onclick="event.stopPropagation();cwToggle()"><span></span></button>
+      <button class="cw-dot yel" onclick="event.stopPropagation()"><span></span></button>
+      <button class="cw-dot grn" ontouchend="event.preventDefault();event.stopPropagation();cwFullscreen();" onclick="event.stopPropagation();cwFullscreen()"><span></span></button>
+    </div>
+    <span class="cw-ttl">Kalkulator</span>
+    <div style="width:66px"></div>
   </div>
-  <div class="cbg">
-    <button class="cbtn ccl" onclick="calcPress('C')">C</button>
-    <button class="cbtn cfn" onclick="calcPress('(')">(</button>
-    <button class="cbtn cfn" onclick="calcPress(')')">)</button>
-    <button class="cbtn cop" onclick="calcPress('÷')">÷</button>
-    <button class="cbtn" onclick="calcPress('7')">7</button>
-    <button class="cbtn" onclick="calcPress('8')">8</button>
-    <button class="cbtn" onclick="calcPress('9')">9</button>
-    <button class="cbtn cop" onclick="calcPress('×')">×</button>
-    <button class="cbtn" onclick="calcPress('4')">4</button>
-    <button class="cbtn" onclick="calcPress('5')">5</button>
-    <button class="cbtn" onclick="calcPress('6')">6</button>
-    <button class="cbtn cop" onclick="calcPress('-')">−</button>
-    <button class="cbtn" onclick="calcPress('1')">1</button>
-    <button class="cbtn" onclick="calcPress('2')">2</button>
-    <button class="cbtn" onclick="calcPress('3')">3</button>
-    <button class="cbtn cop" onclick="calcPress('+')">+</button>
-    <button class="cbtn cfn" onclick="calcPress('±')">±</button>
-    <button class="cbtn" onclick="calcPress('0')">0</button>
-    <button class="cbtn" onclick="calcPress('.')">.</button>
-    <button class="cbtn ceq" onclick="calcPress('=')">=</button>
+  <div class="cw-disp">
+    <div id="cw-expr" class="cw-expr"></div>
+    <div id="cw-num" class="cw-num">0</div>
+    <div id="cw-pre" class="cw-pre"></div>
+  </div>
+  <div class="cw-grid" id="cw-grid">
+    <button class="cw-btn fn" ontouchend="event.preventDefault();cw('BS')" onclick="event.stopPropagation();cw('BS')"><svg width="22" height="17" viewBox="0 0 28 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1h15a2 2 0 012 2v14a2 2 0 01-2 2H10L1 10z"/><line x1="12" y1="7" x2="20" y2="15"/><line x1="20" y1="7" x2="12" y2="15"/></svg></button>
+    <button class="cw-btn cl" ontouchend="event.preventDefault();cw('C')" onclick="event.stopPropagation();cw('C')">AC</button>
+    <button class="cw-btn fn" ontouchend="event.preventDefault();cw('%')" onclick="event.stopPropagation();cw('%')">%</button>
+    <button class="cw-btn op" ontouchend="event.preventDefault();cw('÷')" onclick="event.stopPropagation();cw('÷')"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="2.5" r="2"/><rect x="1" y="8.5" width="18" height="3" rx="1.5"/><circle cx="10" cy="17.5" r="2"/></svg></button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('7')" onclick="event.stopPropagation();cw('7')">7</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('8')" onclick="event.stopPropagation();cw('8')">8</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('9')" onclick="event.stopPropagation();cw('9')">9</button>
+    <button class="cw-btn op" ontouchend="event.preventDefault();cw('×')" onclick="event.stopPropagation();cw('×')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="1" y1="1" x2="17" y2="17"/><line x1="17" y1="1" x2="1" y2="17"/></svg></button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('4')" onclick="event.stopPropagation();cw('4')">4</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('5')" onclick="event.stopPropagation();cw('5')">5</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('6')" onclick="event.stopPropagation();cw('6')">6</button>
+    <button class="cw-btn op" ontouchend="event.preventDefault();cw('-')" onclick="event.stopPropagation();cw('-')"><svg width="18" height="4" viewBox="0 0 18 4" fill="currentColor"><rect width="18" height="4" rx="2"/></svg></button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('1')" onclick="event.stopPropagation();cw('1')">1</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('2')" onclick="event.stopPropagation();cw('2')">2</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('3')" onclick="event.stopPropagation();cw('3')">3</button>
+    <button class="cw-btn op" ontouchend="event.preventDefault();cw('+')" onclick="event.stopPropagation();cw('+')"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><rect x="7.5" y="0" width="3" height="18" rx="1.5"/><rect x="0" y="7.5" width="18" height="3" rx="1.5"/></svg></button>
+    <button class="cw-btn fn" style="font-size:13px;font-weight:600" ontouchend="event.preventDefault();cw('±')" onclick="event.stopPropagation();cw('±')">+/-</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('0')" onclick="event.stopPropagation();cw('0')">0</button>
+    <button class="cw-btn" ontouchend="event.preventDefault();cw('.')" onclick="event.stopPropagation();cw('.')"><svg width="7" height="7" viewBox="0 0 7 7" fill="currentColor"><circle cx="3.5" cy="3.5" r="3.5"/></svg></button>
+    <button class="cw-btn eq" ontouchend="event.preventDefault();cw('=')" onclick="event.stopPropagation();cw('=')"><svg width="18" height="13" viewBox="0 0 18 13" fill="currentColor"><rect y="0" width="18" height="4" rx="2"/><rect y="9" width="18" height="4" rx="2"/></svg></button>
+  </div>
+</div>
+
+<div id="stg-sheet" class="stg-sheet" onclick="if(event.target===this)closeSettings()">
+  <div class="stg-box">
+    <div class="stg-handle" onclick="closeSettings()"><span></span></div>
+    <div class="stg-head">
+      <div class="stg-title">Pengaturan</div>
+      <button class="stg-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="stg-tabs" id="stg-tabs">
+      <button class="stg-tab active" onclick="stgTab('umum',this)">Umum</button>
+      <button class="stg-tab" onclick="stgTab('transfer',this)">Transfer Data</button>
+      <button class="stg-tab" onclick="stgTab('tentang',this)">Tentang</button>
+    </div>
+    <div class="stg-body">
+
+      <!-- TAB: UMUM -->
+      <div id="stg-umum" class="stg-sec active">
+        <div class="stg-grp">
+          <div class="stg-grp-title">Tampilan</div>
+          <div class="stg-row">
+            <div class="stg-row-left">
+              <div class="stg-row-lbl">Mode Gelap</div>
+              <div class="stg-row-sub">Ubah tema terang/gelap</div>
+            </div>
+            <label class="toggle-wrap"><input type="checkbox" id="stg-dark-toggle" onchange="toggleDark()"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Format Unit Otomatis</div>
+          <div class="stg-row-sub" style="margin-bottom:12px">Ketik nama varian seperti <span style="font-family:var(--H);font-weight:600;color:var(--accent)">500gr</span> atau <span style="font-family:var(--H);font-weight:600;color:var(--accent)">1L</span> maka akan otomatis diformat jadi <span style="font-family:var(--H);font-weight:600;color:var(--accent)">500 Gram</span> atau <span style="font-family:var(--H);font-weight:600;color:var(--accent)">1 Liter</span>.</div>
+          <div style="display:grid;grid-template-columns:72px 1fr 70px 28px;gap:4px;padding:0 2px;margin-bottom:6px">
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Singkatan</div>
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Label Penuh</div>
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Satuan</div>
+            <div></div>
+          </div>
+          <div class="stg-unit-map" id="stg-unit-map"></div>
+          <button class="btn bo bsm" style="margin-top:4px" onclick="stgAddUnitRow()">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Singkatan
+          </button>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Daftar Satuan</div>
+          <div class="stg-row-sub" style="margin-bottom:10px">Satuan yang muncul di dropdown saat tambah produk. Ketuk <strong style="color:var(--red)">✕</strong> untuk hapus.</div>
+          <div class="stg-sat-list" id="stg-sat-list"></div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <input type="text" id="stg-sat-inp" placeholder="cth: dus, kardus, botol besar..." style="flex:1;font-size:13px" onkeydown="if(event.key==='Enter'){stgAddSatuan();this.focus()}" autocomplete="off" autocorrect="off" autocapitalize="off">
+            <button class="btn bp bsm" onclick="stgAddSatuan()">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:8px">Satuan default tidak bisa dihapus jika masih dipakai oleh produk.</div>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Gudang Ini</div>
+          <div class="stg-row">
+            <div class="stg-row-left"><div class="stg-row-lbl">Nama Gudang</div><div class="stg-row-sub" id="stg-gudang-name-lbl">—</div></div>
+            <button class="btn bo bsm" onclick="closeSettings();openEditGudang()">Ubah</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TRANSFER DATA -->
+      <div id="stg-transfer" class="stg-sec">
+        <div class="stg-grp">
+          <div class="stg-grp-title">Ekspor ke Perangkat Lain</div>
+          <div class="stg-row-sub" style="margin-bottom:10px">Salin kode di bawah lalu tempel di pengaturan perangkat lain untuk memindahkan semua data.</div>
+          <div style="margin-bottom:8px">
+            <div style="font-family:var(--H);font-size:11px;font-weight:600;color:var(--text3);margin-bottom:6px">KODE EKSPOR (semua gudang)</div>
+            <div class="xfer-area" id="stg-export-code">Klik "Generate" untuk membuat kode</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn bp bsm" onclick="stgGenExport()">Generate Kode</button>
+            <button class="btn bo bsm" onclick="stgCopyCode()" id="stg-copy-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Salin
+            </button>
+          </div>
+        </div>
+        <div class="div"></div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Impor dari Perangkat Lain</div>
+          <div class="stg-row-sub" style="margin-bottom:10px">Tempel kode dari perangkat lain. Data yang ada akan <span style="color:var(--red);font-weight:600">digabungkan</span> (gudang baru ditambah, yang sudah ada dipertahankan).</div>
+          <textarea id="stg-import-code" rows="4" placeholder="Tempel kode ekspor di sini..." style="resize:vertical;font-family:monospace;font-size:12px;margin-bottom:8px"></textarea>
+          <button class="btn bp bfull" onclick="stgDoImport()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Impor Data
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB: TENTANG -->
+      <div id="stg-tentang" class="stg-sec">
+        <div class="about-logo">
+          <div class="about-logo-txt">ailuasc<span>.</span></div>
+          <div class="about-version">StokGudang v2.0 &bull; &copy; 2026 ailuasc</div>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Produk</div>
+          <a class="about-link" href="https://ailuascreative.com" target="_blank" rel="noopener">
+            <div><div class="about-link-lbl">ailuascreative.com</div><div class="about-link-sub">Website resmi ailuasc Creative</div></div>
+            <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <div class="about-link">
+            <div><div class="about-link-lbl">Versi Aplikasi</div><div class="about-link-sub">StokGudang 2.0 — build 2026.03</div></div>
+          </div>
+          <div class="about-link">
+            <div><div class="about-link-lbl">Platform</div><div class="about-link-sub">Web App — HTML/CSS/JS, offline-ready</div></div>
+          </div>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Legal</div>
+          <div class="about-link" onclick="stgShowPrivacy()">
+            <div><div class="about-link-lbl">Kebijakan Privasi</div><div class="about-link-sub">Data tersimpan lokal di perangkat Anda</div></div>
+            <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="about-link">
+            <div><div class="about-link-lbl">Lisensi</div><div class="about-link-sub">Proprietary &bull; ailuasc Creative 2026</div></div>
+          </div>
+        </div>
+        <div class="stg-grp">
+          <div class="stg-grp-title">Penyimpanan</div>
+          <div class="about-link">
+            <div><div class="about-link-lbl">Lokasi Data</div><div class="about-link-sub">localStorage browser perangkat ini</div></div>
+          </div>
+          <div class="about-link">
+            <div><div class="about-link-lbl">Ukuran Data</div><div class="about-link-sub" id="stg-storage-size">Menghitung...</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="stg-privacy-sheet" class="stg-sheet" style="z-index:301" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="stg-box">
+    <div class="stg-handle" onclick="document.getElementById('stg-privacy-sheet').classList.remove('open')"><span></span></div>
+    <div class="stg-head"><div class="stg-title">Kebijakan Privasi</div><button class="stg-close" onclick="document.getElementById('stg-privacy-sheet').classList.remove('open')">✕</button></div>
+    <div class="stg-body" style="font-size:13px;color:var(--text2);line-height:1.7">
+      <p style="margin-bottom:12px"><strong style="color:var(--text)">StokGudang</strong> adalah aplikasi manajemen stok gudang yang dibuat oleh <strong style="color:var(--text)">ailuasc Creative</strong>.</p>
+      <p style="margin-bottom:12px"><strong style="color:var(--text)">Data Anda 100% privat.</strong> Semua data (produk, opname, riwayat) tersimpan hanya di <code>localStorage</code> browser perangkat Anda sendiri. Tidak ada data yang dikirim ke server manapun.</p>
+      <p style="margin-bottom:12px">Kami tidak mengumpulkan, menjual, atau membagikan data apapun. Tidak ada akun, tidak ada cloud, tidak ada tracking.</p>
+      <p style="margin-bottom:12px"><strong style="color:var(--text)">Transfer Data</strong> menggunakan kode yang Anda generate dan salin sendiri — kami tidak menyimpan kode tersebut.</p>
+      <p style="color:var(--text3);font-size:11px">ailuasc Creative &bull; ailuascreative.com &bull; 2026</p>
+    </div>
   </div>
 </div>
 
@@ -652,7 +927,6 @@ var dash = '<span style="color:var(--text3)">-</span>';
 var undoStack = [];
 var redoStack = [];
 var undoBarTimer = null;
-var calcState = {expr:'',afterEq:false};
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5)}
 function gl(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
@@ -674,7 +948,8 @@ function satOpts(sel){return ['pcs','botol','pouch','sachet','kaleng','pack','tu
 
 function enterGudang(id){
   APP.gid=id;APP.screen='gudang';APP.tab='produk';APP.search='';APP.accOpen={};
-  undoStack=[];redoStack=[];updateUndoRedoBtns();
+  undoStack=loadUndoStack(id);redoStack=loadRedoStack(id);updateUndoRedoBtns();
+  sl('sg5_session',{gid:id,tab:'produk'});
   var g=gG().find(function(x){return x.id===id});
   if(!g)return;
   history.pushState({screen:'gudang',id:id},'');
@@ -692,6 +967,7 @@ function enterGudang(id){
 
 function showHome(){
   APP.gid=null;APP.screen='home';
+  sl('sg5_session',null);
   document.getElementById('screen-gudang').style.display='none';
   document.getElementById('screen-home').style.display='';
   renderHome();
@@ -713,6 +989,7 @@ window.addEventListener('popstate',function(e){
   var state=e.state||{screen:'home'};
   if(!state.screen||state.screen==='home'){
     APP.gid=null;APP.screen='home';
+    sl('sg5_session',null);
     document.getElementById('screen-gudang').style.display='none';
     document.getElementById('screen-home').style.display='';
     renderHome();
@@ -721,6 +998,7 @@ window.addEventListener('popstate',function(e){
 
 function goTab(name){
   APP.tab=name;
+  sl('sg5_session',{gid:APP.gid,tab:name});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
   document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('active')});
   var tabs=['produk','opname','ringkasan','ekspor'];
@@ -890,7 +1168,7 @@ function renderTbProduk(){
         '</div>'+
         variants.map(function(p){
           return '<div class="acc-vrow">'+
-            '<div class="acc-vinfo">'+
+            '<div class="acc-vinfo" style="cursor:pointer" onclick="openPInfo(\''+p.id+'\')">'+
               '<div class="acc-vname"><span class="badge bb">'+esc(p.varian)+'</span></div>'+
               '<div class="acc-vmeta">'+
                 (p.brand?'<span class="pill">'+esc(p.brand)+'</span>':'')+
@@ -947,6 +1225,7 @@ function openAddProduk(prefillName){
   document.getElementById('mode-multi').style.display='block';
   document.getElementById('mode-single').style.display='none';
   document.getElementById('mp-save-btn').textContent='Simpan Semua';
+  renderLevelsIntoWrap('f-levels-wrap',[]);
   APP.vrCnt=0;
   document.getElementById('varian-rows').innerHTML='';
   addVrRow(null);
@@ -1008,6 +1287,7 @@ function editVariant(id){
   document.getElementById('f-satuan').value=p.satuan;
   document.getElementById('f-isi').value=p.isi;
   document.getElementById('f-ket').value=p.keterangan||'';
+  renderLevelsIntoWrap('f-levels-wrap', p.levels||[]);
   document.getElementById('mode-multi').style.display='none';
   document.getElementById('mode-single').style.display='block';
   document.getElementById('mp-save-btn').textContent='Simpan';
@@ -1036,7 +1316,7 @@ function addVrRow(data){
     '</div>'+
     '<button class="vr-stok-btn" id="vrsb-'+n+'" onclick="toggleVrStok('+n+')" type="button">'+
       '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:4px;vertical-align:middle"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'+
-      'Isi Stok Awal (opsional)'+
+      'Isi Stok Awal'+
     '</button>'+
     '<div class="vr-stok-sec" id="vrs-'+n+'">'+
       '<div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">Stok Awal</div>'+
@@ -1120,7 +1400,7 @@ function saveProduk(){
   if(!nama){toast('Nama produk wajib diisi','err');return}
   var list=gP();
   if(eid){
-    var varian=gv('f-varian'),brand=gv('f-brand'),kat=gv('f-kat'),satuan=document.getElementById('f-satuan').value;
+    var varian=fmtUnit(gv('f-varian')),brand=gv('f-brand'),kat=gv('f-kat'),satuan=document.getElementById('f-satuan').value;
     var isi=parseInt(document.getElementById('f-isi').value);
     var ket=gv('f-ket');
     if(!varian){toast('Varian wajib diisi','err');return}
@@ -1129,14 +1409,14 @@ function saveProduk(){
     if(dup){toast('Kombinasi nama dan varian sudah ada','err');return}
     var idx=list.findIndex(function(p){return p.id===eid});
     pushUndo({type:'produk',produk:gP().slice()});
-    if(idx!==-1)list[idx]={id:eid,nama:nama,varian:varian,brand:brand,kategori:kat,satuan:satuan,isi:isi,keterangan:ket};
-    sP(list);APP.formDirty=false;closeModal('m-produk');toast('Produk diperbarui','ok');renderTbProduk();return;
+    if(idx!==-1)list[idx]={id:eid,nama:nama,varian:varian,brand:brand,kategori:kat,satuan:satuan,isi:isi,keterangan:ket,levels:getLevelsFromWrap('f-levels-wrap')};
+    sP(list);APP.formDirty=false;if(minimizedModalId==='m-produk')restoreMinimizedModal();closeModal('m-produk');toast('Produk diperbarui','ok');renderTbProduk();return;
   }
   var rows=document.querySelectorAll('.vr-row');
   if(!rows.length){toast('Tambahkan minimal 1 varian','err');return}
   var toAdd=[],opToAdd=[],errors=[];
   rows.forEach(function(row,i){
-    var varian=row.querySelector('.vr-varian').value.trim();
+    var varian=fmtUnit(row.querySelector('.vr-varian').value.trim());
     var brand=row.querySelector('.vr-brand').value.trim();
     var kat=row.querySelector('.vr-kat').value.trim();
     var satuan=row.querySelector('.vr-satuan').value;
@@ -1291,27 +1571,61 @@ function loadVarian(){
   document.getElementById('vt-psub').textContent=sub.join(' | ');
   var body=document.getElementById('vt-body');
   body.innerHTML='';
+  var latestMap=getLatestMap();
   plist.forEach(function(p){
     var pid=p.id;
+    var prev=latestMap[pid]||null;
     var card=document.createElement('div');
     card.className='op-vcard';
     card.dataset.pid=pid;
+    var prevDus=prev&&prev.dusPenuh?prev.dusPenuh:'';
+    var prevBuka=prev&&prev.dusBukaPcs?prev.dusBukaPcs:'';
+    var prevEcer=prev&&prev.eceran?prev.eceran:'';
+    var prevDirect=prev&&prev.totalLangsung!==null&&prev.totalLangsung!==undefined?prev.totalLangsung:'';
+    var prevNote=prev?'<div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--H)">Terakhir: '+fd(prev.timestamp)+'</div>':'';
+    var levels=p.levels&&p.levels.length?p.levels:null;
+    var prevDus=prev&&prev.dusPenuh?prev.dusPenuh:'';
+    var prevBuka=prev&&prev.dusBukaPcs?prev.dusBukaPcs:'';
+    var prevEcer=prev&&prev.eceran?prev.eceran:'';
+    var prevDirect=prev&&prev.totalLangsung!==null&&prev.totalLangsung!==undefined?prev.totalLangsung:'';
+    var gridHtml='';
+    if(levels){
+      // build multiplier chain: levels[0].isi * levels[1].isi * ... * p.isi = total base units per levels[0]
+      // Each level: nama, qty input, sub-label showing what 1 of this = next level
+      levels.forEach(function(lv,li){
+        var nextName=li+1<levels.length?levels[li+1].nama:p.satuan;
+        var prevVal=prev&&prev.levelQtys&&prev.levelQtys[li]!==undefined?prev.levelQtys[li]:'';
+        gridHtml+='<div class="op-vf"><div class="op-vf-lbl">'+esc(lv.nama)+'</div>'+
+          '<input type="number" class="op-vinp op-vinp-lv" id="d-'+pid+'-lv'+li+'" min="0" placeholder="0" value="'+prevVal+'" inputmode="numeric" oninput="rcLv(\''+pid+'\')">'+
+          '<div class="op-vf-sub">1 = '+lv.isi+' '+esc(nextName)+'</div></div>';
+      });
+      // last standard level = satuan
+      gridHtml+='<div class="op-vf"><div class="op-vf-lbl">'+esc(p.satuan)+' Lepas</div>'+
+        '<input type="number" class="op-vinp op-vinp-lv" id="d-'+pid+'-lvecer" min="0" placeholder="0" value="'+prevEcer+'" inputmode="numeric" oninput="rcLv(\''+pid+'\')">'+
+        '<div class="op-vf-sub">satuan lepas</div></div>';
+      gridHtml+='<div class="op-vf"><div class="op-vf-lbl" style="color:var(--green)">Total Langsung</div>'+
+        '<input type="number" class="op-vinp op-vinp-direct" id="d-'+pid+'-direct" min="0" placeholder="0" value="'+prevDirect+'" inputmode="numeric" oninput="rcLv(\''+pid+'\')">'+
+        '<div class="op-vf-sub" style="color:var(--green)">auto-split</div></div>';
+    } else {
+      gridHtml=
+        '<div class="op-vf"><div class="op-vf-lbl">Dus Penuh</div><input type="number" class="op-vinp" id="d-'+pid+'-dus" min="0" placeholder="0" value="'+prevDus+'" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">1 dus = '+p.isi+' '+esc(p.satuan)+'</div></div>'+
+        '<div class="op-vf"><div class="op-vf-lbl">Pcs Terbuka</div><input type="number" class="op-vinp" id="d-'+pid+'-buka" min="0" placeholder="0" value="'+prevBuka+'" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">sisa dus terbuka</div></div>'+
+        '<div class="op-vf"><div class="op-vf-lbl">Pcs Eceran</div><input type="number" class="op-vinp" id="d-'+pid+'-ecer" min="0" placeholder="0" value="'+prevEcer+'" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">satuan lepas</div></div>'+
+        '<div class="op-vf"><div class="op-vf-lbl" style="color:var(--green)">Total Langsung</div><input type="number" class="op-vinp op-vinp-direct" id="d-'+pid+'-direct" min="0" placeholder="0" value="'+prevDirect+'" inputmode="numeric" oninput="rc(\''+pid+'\',true)"><div class="op-vf-sub" style="color:var(--green)">auto-split ke dus</div></div>';
+    }
     card.innerHTML=
-      '<div class="op-vcard-head">'+
+      '<div class="op-vcard-head" style="cursor:pointer" onclick="openPInfo(\''+pid+'\')">'+
         '<div>'+
           '<span class="badge bb">'+esc(p.varian)+'</span>'+
           (p.brand?'<span class="pill" style="margin-left:6px">'+esc(p.brand)+'</span>':'')+
         '</div>'+
-        '<div class="op-vcard-meta">1 dus = '+p.isi+' '+esc(p.satuan)+'</div>'+
+        '<div class="op-vcard-meta">1 dus = '+p.isi+' '+esc(p.satuan)+(levels?' &bull; '+levels.length+' level kemasan':'')+'</div>'+
       '</div>'+
-      '<div class="op-vcard-grid">'+
-        '<div class="op-vf"><div class="op-vf-lbl">Dus Penuh</div><input type="number" class="op-vinp" id="d-'+pid+'-dus" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">1 dus = '+p.isi+' '+esc(p.satuan)+'</div></div>'+
-        '<div class="op-vf"><div class="op-vf-lbl">Pcs Terbuka</div><input type="number" class="op-vinp" id="d-'+pid+'-buka" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">sisa dus terbuka</div></div>'+
-        '<div class="op-vf"><div class="op-vf-lbl">Pcs Eceran</div><input type="number" class="op-vinp" id="d-'+pid+'-ecer" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\',false)"><div class="op-vf-sub">satuan lepas</div></div>'+
-        '<div class="op-vf"><div class="op-vf-lbl" style="color:var(--green)">Total Langsung</div><input type="number" class="op-vinp op-vinp-direct" id="d-'+pid+'-direct" min="0" placeholder="0" inputmode="numeric" oninput="rc(\''+pid+'\',true)"><div class="op-vf-sub" style="color:var(--green)">auto-split ke dus</div></div>'+
-      '</div>'+
+      prevNote+
+      '<div class="op-vcard-grid">'+gridHtml+'</div>'+
       '<div class="op-vtotal empty" id="tot-'+pid+'"><span class="op-vtotal-v" id="totv-'+pid+'">-</span><span class="op-vtotal-l" id="totl-'+pid+'"> Total Pcs</span></div>';
     body.appendChild(card);
+    if(levels)rcLv(pid); else rc(pid,false);
   });
   wrap.style.display='block';
 }
@@ -1348,6 +1662,40 @@ function rc(pid,fromDirect){
   if(elL)elL.textContent=lbl;
 }
 
+function rcLv(pid){
+  var p=gP().find(function(x){return x.id===pid});
+  if(!p||!p.levels||!p.levels.length)return;
+  var levels=p.levels;
+  var vDirect=getFieldVal(pid,'direct');
+  var hasDirect=vDirect!=='';
+  var total=null,isGreen=false;
+  if(hasDirect){
+    total=parseInt(vDirect)||0;isGreen=true;
+  } else {
+    // compute multiplier for each level: mult[i] = levels[i].isi * levels[i+1].isi * ... * p.isi
+    var mults=[];
+    var m=1;
+    // base unit multiplier from p.isi is NOT used here — p.isi is lowest "dus" level
+    // multiplier chain: levels[0] contains levels[0].isi of levels[1], etc, last level contains lastLevel.isi of p.satuan
+    for(var i=levels.length-1;i>=0;i--){mults[i]=m*levels[i].isi;m=mults[i];}
+    total=0;
+    var anyFilled=false;
+    for(var j=0;j<levels.length;j++){
+      var v=getFieldVal(pid,'lv'+j);
+      if(v!==''){anyFilled=true;total+=( parseInt(v)||0)*mults[j];}
+    }
+    var ecer=getFieldVal(pid,'lvecer');
+    if(ecer!==''){anyFilled=true;total+=parseInt(ecer)||0;}
+    if(!anyFilled)total=null;
+  }
+  var el=document.getElementById('tot-'+pid);
+  var elV=document.getElementById('totv-'+pid);
+  var elL=document.getElementById('totl-'+pid);
+  if(el)el.className='op-vtotal'+(total===null?' empty':isGreen?' gv':'');
+  if(elV)elV.textContent=total!==null?total:'-';
+  if(elL)elL.textContent=total===null?' Total Pcs':isGreen?' (langsung)':' pcs';
+}
+
 function simpanBatch(){
   var nama=document.getElementById('sel-produk').value;
   if(!nama){toast('Pilih produk terlebih dahulu','err');return}
@@ -1355,12 +1703,32 @@ function simpanBatch(){
   var opList=gO();var saved=0;
   plist.forEach(function(p){
     var pid=p.id;
-    var vDus=getFieldVal(pid,'dus'),vBuka=getFieldVal(pid,'buka'),vEcer=getFieldVal(pid,'ecer'),vDirect=getFieldVal(pid,'direct');
-    if(vDus===''&&vBuka===''&&vEcer===''&&vDirect==='')return;
+    var levels=p.levels&&p.levels.length?p.levels:null;
+    var vDirect=getFieldVal(pid,'direct');
+    var vDus=getFieldVal(pid,'dus'),vBuka=getFieldVal(pid,'buka'),vEcer=getFieldVal(pid,'ecer');
+    var hasAny=false;
+    if(levels){
+      var lvVals=levels.map(function(_,i){return getFieldVal(pid,'lv'+i)});
+      var lvecer=getFieldVal(pid,'lvecer');
+      hasAny=lvVals.some(function(v){return v!==''})||lvecer!==''||vDirect!=='';
+    } else {
+      hasAny=vDus!==''||vBuka!==''||vEcer!==''||vDirect!=='';
+    }
+    if(!hasAny)return;
     var dus=parseInt(vDus)||0,buka=parseInt(vBuka)||0,ecer=parseInt(vEcer)||0;
     var direct=vDirect!==''?(parseInt(vDirect)||0):null;
-    var total=direct!==null?direct:(dus*p.isi+buka+ecer);
-    opList.push({id:uid(),productId:p.id,nama:p.nama,varian:p.varian,brand:p.brand||'',kategori:p.kategori||'',satuan:p.satuan,isiPerDus:p.isi,dusPenuh:dus,dusBukaPcs:buka,eceran:ecer,totalLangsung:direct,totalPcs:total,timestamp:Date.now()});
+    var total,levelQtys=null;
+    if(levels){
+      var mults=[];var m=1;
+      for(var i=levels.length-1;i>=0;i--){mults[i]=m*levels[i].isi;m=mults[i];}
+      levelQtys=levels.map(function(_,i){return parseInt(getFieldVal(pid,'lv'+i))||0;});
+      var lvecer2=parseInt(getFieldVal(pid,'lvecer'))||0;
+      total=direct!==null?direct:levelQtys.reduce(function(s,q,i){return s+q*mults[i];},0)+lvecer2;
+      ecer=lvecer2;dus=levelQtys[0]||0;buka=levelQtys.length>1?(levelQtys[1]||0):0;
+    } else {
+      total=direct!==null?direct:(dus*p.isi+buka+ecer);
+    }
+    opList.push({id:uid(),productId:p.id,nama:p.nama,varian:p.varian,brand:p.brand||'',kategori:p.kategori||'',satuan:p.satuan,isiPerDus:p.isi,dusPenuh:dus,dusBukaPcs:buka,eceran:ecer,totalLangsung:direct,totalPcs:total,levelQtys:levelQtys,timestamp:Date.now()});
     saved++;
   });
   if(!saved){toast('Tidak ada data yang diisi','err');return}
@@ -1482,7 +1850,7 @@ function renderRingkasan(){
       g.variants.map(function(item){
         var p=item.p,o=item.o;
         var hasBreakdown=o&&(o.dusPenuh||o.dusBukaPcs||o.eceran);
-        return '<div class="ring-vrow clickable" onclick="'+(o?'openEditOp(\''+o.id+'\')':'goToOpname(\''+p.id+'\')')+'">'+ 
+        return '<div class="ring-vrow clickable" onclick="openPInfo(\''+p.id+'\')">'+ 
           '<div class="ring-vinfo">'+
             '<div class="ring-vname"><span class="badge bb">'+esc(p.varian)+'</span>'+
               (p.brand?'<span class="pill" style="margin-left:5px">'+esc(p.brand)+'</span>':'')+
@@ -1594,6 +1962,8 @@ document.getElementById('cfm-ok').addEventListener('click',function(){
 });
 
 function openModal(id){
+  // restore if was minimized
+  if(minimizedModalId===id)restoreMinimizedModal();
   document.getElementById(id).classList.add('open');
   history.pushState({modal:id,screen:APP.screen,gid:APP.gid},'');
 }
@@ -1601,6 +1971,8 @@ function openModal(id){
 function closeModal(id){
   var el=document.getElementById(id);
   if(!el||!el.classList.contains('open'))return;
+  // block closing if minimized — user must use Save/Cancel buttons
+  if(minimizedModalId===id)return;
   el.classList.remove('open');
   if(history.state&&history.state.modal===id){history.back()}
 }
@@ -1610,44 +1982,67 @@ document.addEventListener('keydown',function(e){
     var open=document.querySelector('.mov.open');
     if(open){
       if(open.id==='m-produk'){closeProdukModal();return}
-      closeModal(open.id);
+      closeModal(open.id);return;
     }
-    var cp=document.getElementById('calc-popup');
-    if(cp&&cp.classList.contains('show')){toggleCalc();return}
+    var cw=document.getElementById('cw');
+    if(cw&&cw.classList.contains('vis')){cwToggle();return}
     return;
   }
   if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();doUndo();return}
   if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();doRedo();return}
-  var cp=document.getElementById('calc-popup');
-  if(cp&&cp.classList.contains('show')){
-    var kt=e.key;
-    if(kt==='Enter'||kt==='='){calcPress('=');e.preventDefault();return}
-    if(kt==='Backspace'){
-      calcState.expr=calcState.expr.slice(0,-1);
-      calcState.afterEq=false;
-      calcRender();e.preventDefault();return;
-    }
-    if(kt==='*'){calcPress('×');e.preventDefault();return}
-    if(kt==='/'){calcPress('÷');e.preventDefault();return}
-    if(/^[0-9+\-().%]$/.test(kt)){calcPress(kt);e.preventDefault();return}
-  }
 });
+
+// Desktop keyboard → calculator (when calc is open, always intercept unless in input)
+document.addEventListener('keydown',function(e){
+// keyboard handled by cwInitDrag listener
+},true);
 
 document.querySelectorAll('.mov').forEach(function(m){
   m.addEventListener('click',function(e){
     if(e.target!==e.currentTarget)return;
+    if(minimizedModalId===m.id)return; // blocked while minimized
     if(m.id==='m-produk'){closeProdukModal();return}
     closeModal(m.id);
   });
 });
 
+function fmtUnit(text){
+  if(!text)return text;
+  var unitMap=[
+    [/(\d+(?:\.\d+)?)\s*liter(s?)/i,'$1 Liter'],
+    [/(\d+(?:\.\d+)?)\s*litre(s?)/i,'$1 Liter'],
+    [/(\d+(?:\.\d+)?)\s*l\b/i,'$1 Liter'],
+    [/(\d+(?:\.\d+)?)\s*kilogram(s?)/i,'$1 Kilogram'],
+    [/(\d+(?:\.\d+)?)\s*kg\b/i,'$1 Kilogram'],
+    [/(\d+(?:\.\d+)?)\s*gram(s?)/i,'$1 Gram'],
+    [/(\d+(?:\.\d+)?)\s*gr\b/i,'$1 Gram'],
+    [/(\d+(?:\.\d+)?)\s*g\b/i,'$1 Gram'],
+    [/(\d+(?:\.\d+)?)\s*milligram(s?)/i,'$1 Miligram'],
+    [/(\d+(?:\.\d+)?)\s*mg\b/i,'$1 Miligram'],
+    [/(\d+(?:\.\d+)?)\s*milliliter(s?)/i,'$1 mL'],
+    [/(\d+(?:\.\d+)?)\s*ml\b/i,'$1 mL'],
+    [/(\d+(?:\.\d+)?)\s*cc\b/i,'$1 cc'],
+  ];
+  var t=text.trim();
+  for(var i=0;i<unitMap.length;i++){
+    var match=t.match(new RegExp('^'+unitMap[i][0].source+'(.*)$','i'));
+    if(match){
+      var suffix=t.replace(new RegExp('^'+unitMap[i][0].source,'i'),'').trim();
+      var base=t.replace(new RegExp('^'+unitMap[i][0].source,'i'),unitMap[i][1]).trim();
+      if(suffix&&suffix!==base)return base+' '+suffix;
+      return base;
+    }
+  }
+  return t;
+}
+
 function autoSatuan(val,satuanEl,onlyIfDefault){
   if(!satuanEl)return;
   if(onlyIfDefault&&satuanEl.value!=='pcs')return;
-  var v=val.toLowerCase().replace(/\s/g,'');
+  var v=(val||'').toLowerCase().replace(/\s/g,'');
   var s=null;
-  if(/\d*(ml|liter|litre)/.test(v)||(/\d+l\b/.test(v))||v.endsWith('l')){s='botol'}
-  else if(/\d*(gr|gram|g|mg|kg)/.test(v)){s='sachet'}
+  if(/\d*(ml|liter|litre)/.test(v)||/\d+l$/.test(v)){s='botol'}
+  else if(/\d*(gr|gram|g)/.test(v)||/\d+kg/.test(v)||/\d+mg/.test(v)){s='sachet'}
   else if(/sachet/.test(v)){s='sachet'}
   else if(/pouch/.test(v)){s='pouch'}
   else if(/tube/.test(v)){s='tube'}
@@ -1656,6 +2051,668 @@ function autoSatuan(val,satuanEl,onlyIfDefault){
   else if(/pack|pak/.test(v)){s='pack'}
   if(s)satuanEl.value=s;
 }
+
+function loadUndoStack(gid){
+  try{return JSON.parse(localStorage.getItem('sg5_undo_'+gid))||[]}catch(e){return[]}
+}
+function loadRedoStack(gid){
+  try{return JSON.parse(localStorage.getItem('sg5_redo_'+gid))||[]}catch(e){return[]}
+}
+function saveUndoStacks(){
+  if(!APP.gid)return;
+  try{localStorage.setItem('sg5_undo_'+APP.gid,JSON.stringify(undoStack.slice(-20)));localStorage.setItem('sg5_redo_'+APP.gid,JSON.stringify(redoStack.slice(-20)))}catch(e){}
+}
+
+function toggleDark(){
+  var isDark=document.body.classList.toggle('dark');
+  sl('sg5_dark',isDark);
+  updateDarkIcons(isDark);
+}
+function updateDarkIcons(dark){
+  ['','home-'].forEach(function(pfx){
+    var d=document.getElementById('ico-'+pfx+'dark');
+    var l=document.getElementById('ico-'+pfx+'light');
+    if(d)d.style.display=dark?'none':'block';
+    if(l)l.style.display=dark?'block':'none';
+  });
+}
+
+var pInfoPid=null;
+
+function addLevelRow(wrapId, data){
+  var wrap=document.getElementById(wrapId);
+  if(!wrap)return;
+  var d=data||{nama:'',isi:''};
+  var row=document.createElement('div');
+  row.className='lvl-row';
+  row.innerHTML=
+    '<input type="text" placeholder="Nama (cth: Dus Besar)" value="'+esc(d.nama||'')+'" class="lvl-nama" oninput="APP.formDirty=true">'+
+    '<input type="number" min="1" placeholder="Isi" value="'+(d.isi||'')+'" class="lvl-isi" oninput="APP.formDirty=true">'+
+    '<button type="button" class="lvl-del" onclick="this.parentNode.remove()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+  wrap.appendChild(row);
+}
+
+function getLevelsFromWrap(wrapId){
+  var wrap=document.getElementById(wrapId);
+  if(!wrap)return[];
+  var levels=[];
+  wrap.querySelectorAll('.lvl-row').forEach(function(r){
+    var nama=r.querySelector('.lvl-nama').value.trim();
+    var isi=parseInt(r.querySelector('.lvl-isi').value)||0;
+    if(nama&&isi>0)levels.push({nama:nama,isi:isi});
+  });
+  return levels;
+}
+
+function renderLevelsIntoWrap(wrapId, levels){
+  var wrap=document.getElementById(wrapId);
+  if(!wrap)return;
+  wrap.innerHTML='';
+  (levels||[]).forEach(function(l){addLevelRow(wrapId,l)});
+}
+function openPInfo(pid){
+  var p=gP().find(function(x){return x.id===pid});
+  if(!p)return;
+  pInfoPid=pid;
+  var latest=getLatestMap();
+  var o=latest[pid]||null;
+  document.getElementById('pinfo-title').textContent=p.nama+' — '+p.varian;
+  var html='<div style="background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px">';
+  html+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">';
+  html+='<span class="badge bb">'+esc(p.varian)+'</span>';
+  if(p.brand)html+='<span class="pill">'+esc(p.brand)+'</span>';
+  if(p.kategori)html+='<span class="badge bg2">'+esc(p.kategori)+'</span>';
+  html+='</div>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  html+='<div><div style="font-family:var(--H);font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em">Satuan</div><div style="font-family:var(--H);font-size:14px;font-weight:700;margin-top:2px">'+esc(p.satuan)+'</div></div>';
+  html+='<div><div style="font-family:var(--H);font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em">Isi/Dus</div><div style="font-family:var(--H);font-size:14px;font-weight:700;margin-top:2px">'+p.isi+'</div></div>';
+  if(p.keterangan)html+='<div style="grid-column:1/-1"><div style="font-family:var(--H);font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em">Keterangan</div><div style="font-size:13px;color:var(--text2);margin-top:2px">'+esc(p.keterangan)+'</div></div>';
+  html+='</div></div>';
+  if(o){
+    html+='<div style="margin-bottom:6px;font-family:var(--H);font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em">Stok Terakhir &mdash; '+fd(o.timestamp)+'</div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">';
+    html+='<div class="op-vf"><div class="op-vf-lbl">Dus</div><div style="font-family:var(--H);font-size:18px;font-weight:700;color:var(--text);padding:8px 0">'+(o.dusPenuh||'—')+'</div></div>';
+    html+='<div class="op-vf"><div class="op-vf-lbl">Terbuka</div><div style="font-family:var(--H);font-size:18px;font-weight:700;color:var(--text);padding:8px 0">'+(o.dusBukaPcs||'—')+'</div></div>';
+    html+='<div class="op-vf"><div class="op-vf-lbl">Eceran</div><div style="font-family:var(--H);font-size:18px;font-weight:700;color:var(--text);padding:8px 0">'+(o.eceran||'—')+'</div></div>';
+    html+='<div class="op-vf"><div class="op-vf-lbl" style="color:var(--accent)">Total Pcs</div><div style="font-family:var(--H);font-size:18px;font-weight:700;color:var(--accent);padding:8px 0">'+o.totalPcs+'</div></div>';
+    html+='</div>';
+    html+='<button class="btn bo bfull" style="margin-bottom:6px" onclick="closeModal(\'m-pinfo\');openEditOp(\''+o.id+'\')">Edit Opname Terakhir</button>';
+  } else {
+    html+='<div style="background:var(--s2);border:1px dashed var(--border2);border-radius:var(--rs);padding:14px;text-align:center;color:var(--text3);font-size:13px;margin-bottom:14px">Belum ada data opname</div>';
+  }
+  document.getElementById('pinfo-body').innerHTML=html;
+  openModal('m-pinfo');
+}
+
+function pInfoGoOpname(){
+  if(!pInfoPid)return;
+  closeModal('m-pinfo');
+  goToOpname(pInfoPid);
+}
+
+// ─── Calculator ───
+var CW={expr:'',afterEq:false};
+
+function cwEl(id){return document.getElementById(id)}
+function cwRender(){
+  var e=CW.expr,ae=CW.afterEq;
+  var pre='';
+  if(!ae&&e&&e!=='Err'){var r=cwEval(e);if(r!==null)pre='= '+cwFmt(r);}
+  cwEl('cw-expr').textContent=ae?'':e;
+  cwEl('cw-num').textContent=ae?e||'0':(e||'0');
+  cwEl('cw-pre').textContent=pre;
+}
+function cwEval(raw){
+  if(!raw||raw==='Err')return null;
+  try{
+    var s=raw.replace(/×/g,'*').replace(/÷/g,'/');
+    var op=(s.match(/\(/g)||[]).length,cl=(s.match(/\)/g)||[]).length;
+    while(cl<op)s+=')';
+    var r=Function('"use strict";return('+s+')')();
+    if(!isFinite(r))return null;
+    return Math.round(r*1e10)/1e10;
+  }catch(e){return null}
+}
+function cwFmt(n){
+  if(n===null||n===undefined)return '';
+  var s=String(n);
+  if(s.indexOf('.')!==-1)s=parseFloat(n.toFixed(10)).toString();
+  return s;
+}
+function cw(k){
+  var e=CW.expr,ae=CW.afterEq;
+  if(k==='C'){CW={expr:'',afterEq:false};cwRender();return}
+  if(k==='BS'){
+    if(ae){CW={expr:'',afterEq:false};}
+    else{CW.expr=e.slice(0,-1);}
+    cwRender();return;
+  }
+  if(k==='%'){
+    if(e&&!ae){
+      var parts=e.split(/(?=[+\-×÷])/);
+      var last=parts[parts.length-1];
+      var num=parseFloat(last);
+      if(!isNaN(num)){
+        var base=e.slice(0,e.lastIndexOf(last));
+        CW.expr=base+(num/100);
+        CW.afterEq=false;cwRender();
+      }
+    }
+    return;
+  }
+  if(k==='='){
+    if(!e||e==='Err'){CW={expr:'',afterEq:false};cwRender();return}
+    var res=cwEval(e);
+    CW.expr=res!==null?cwFmt(res):'Err';
+    CW.afterEq=true;cwRender();return;
+  }
+  var isOp=k==='+'||k==='-'||k==='×'||k==='÷';
+  if(k==='±'){
+    if(!e&&!ae){CW.expr='-';CW.afterEq=false;cwRender();return}
+    var last=e.replace(/.*[+×÷]/,'');
+    if(/^-?\d/.test(last)){
+      var pos=e.lastIndexOf(last);
+      var before=e.slice(0,pos);
+      CW.expr=before+(last.startsWith('-')?last.slice(1):'-'+last);
+    }
+    CW.afterEq=false;cwRender();return;
+  }
+  if(k==='('){
+    var last2=e.slice(-1);
+    CW.expr=(!e||ae)?'(':(last2&&(/\d/.test(last2)||last2===')'))?e+'×(':e+'(';
+    CW.afterEq=false;cwRender();return;
+  }
+  if(ae){
+    if(isOp){CW.expr=CW.expr+k;}
+    else{CW.expr=k==='.'?'0.':k;}
+    CW.afterEq=false;cwRender();return;
+  }
+  if(isOp){
+    if(!e){CW.expr=k;cwRender();return}
+    var lc=e.slice(-1);
+    if('+-×÷'.indexOf(lc)!==-1){CW.expr=e.slice(0,-1)+k;}
+    else{CW.expr=e+k;}
+    cwRender();return;
+  }
+  if(k==='.'&&e.split(/[+\-×÷()]/).pop().indexOf('.')!==-1)return;
+  CW.expr=e+k;cwRender();
+}
+
+function cwToggle(ev){
+  if(ev)ev.stopPropagation();
+  var w=cwEl('cw');if(!w)return;
+  var btn=cwEl('btn-calc');
+  if(w.classList.contains('vis')){
+    cwExitFs();
+    w.classList.remove('vis');
+    if(btn)btn.classList.remove('active');
+  } else {
+    CW={expr:'',afterEq:false};
+    w.classList.remove('fs');
+    w.removeAttribute('style');
+    var vv=window.visualViewport;
+    w.style.top=((vv?vv.offsetTop:0)+64)+'px';
+    w.style.right='12px';w.style.left='auto';
+    w.classList.add('vis');
+    if(btn)btn.classList.add('active');
+    cwRender();
+    requestAnimationFrame(function(){cwSize(w);});
+  }
+}
+
+function cwSize(w){
+  w=w||cwEl('cw');if(!w||w.classList.contains('fs'))return;
+  var W=w.offsetWidth||240;
+  // padding=6 each side=12, gap=6*3=18 between 4 cols => (W-30)/4
+  var cell=Math.floor((W-30)/4);
+  cell=Math.max(42,Math.min(62,cell));
+  var btnFs=Math.max(14,Math.min(20,Math.floor(cell*0.4)));
+  var numFs=Math.max(28,Math.min(48,Math.floor(W*0.17)));
+  w.style.setProperty('--cell',cell+'px');
+  w.querySelectorAll('.cw-btn').forEach(function(b){b.style.fontSize=btnFs+'px';});
+  var ne=cwEl('cw-num');if(ne)ne.style.fontSize=numFs+'px';
+}
+
+function cwFullscreen(){
+  if(window.innerWidth>=768)return;
+  var w=cwEl('cw');if(!w)return;
+  var going=!w.classList.contains('fs');
+  if(going){
+    w.classList.add('fs');
+    w.removeAttribute('style');
+    w.style.display='';
+    document.body.style.overflow='hidden';
+    // clear per-button sizes — CSS handles fs layout
+    w.querySelectorAll('.cw-btn').forEach(function(b){b.style.cssText='';});
+    var ne=cwEl('cw-num');if(ne)ne.style.fontSize='';
+    w.style.removeProperty('--cell');
+  } else {
+    cwExitFs();
+  }
+}
+
+function cwExitFs(){
+  var w=cwEl('cw');if(!w)return;
+  if(!w.classList.contains('fs'))return;
+  w.classList.remove('fs');
+  document.body.style.overflow='';
+  w.style.removeProperty('--cell');
+  w.querySelectorAll('.cw-btn').forEach(function(b){b.style.cssText='';});
+  var ne=cwEl('cw-num');if(ne)ne.style.fontSize='';
+  w.style.top='64px';w.style.right='12px';w.style.left='auto';
+  requestAnimationFrame(function(){cwSize(w);});
+}
+
+var minimizedModalId=null;
+
+function minimizeModal(mov){
+  if(!mov||!mov.id)return;
+  minimizedModalId=mov.id;
+  mov.classList.add('minimized');
+  var tab=document.getElementById('modal-min-tab');
+  var lbl=document.getElementById('modal-min-label');
+  var mt=mov.querySelector('.mt');
+  if(lbl)lbl.textContent=mt?mt.textContent:'Modal';
+  if(tab)tab.classList.add('show');
+}
+
+function restoreMinimizedModal(){
+  if(!minimizedModalId)return;
+  var mov=document.getElementById(minimizedModalId);
+  if(mov){
+    mov.classList.remove('minimized');
+    var modal=mov.querySelector('.modal');
+    if(modal){modal.style.transform='';modal.style.transition='';}
+  }
+  var tab=document.getElementById('modal-min-tab');
+  if(tab)tab.classList.remove('show');
+  minimizedModalId=null;
+}
+
+function cwInitDrag(){
+  var w=cwEl('cw'),h=cwEl('cw-drag');
+  if(!w||!h)return;
+  var sx,sy,drag=false;
+  function ds(e){
+    if(e.target.tagName==='BUTTON')return;
+    drag=true;var t=e.touches?e.touches[0]:e;
+    var r=w.getBoundingClientRect();sx=t.clientX-r.left;sy=t.clientY-r.top;
+    document.addEventListener('mousemove',dm);document.addEventListener('touchmove',dm,{passive:false});
+    document.addEventListener('mouseup',de);document.addEventListener('touchend',de);
+    e.preventDefault();
+  }
+  function dm(e){
+    if(!drag)return;var t=e.touches?e.touches[0]:e;
+    var vw=window.innerWidth,vh=window.innerHeight;
+    var x=Math.max(0,Math.min(t.clientX-sx,vw-w.offsetWidth));
+    var y=Math.max(0,Math.min(t.clientY-sy,vh-w.offsetHeight));
+    w.style.left=x+'px';w.style.top=y+'px';w.style.right='auto';
+    if(e.cancelable)e.preventDefault();
+  }
+  function de(){drag=false;document.removeEventListener('mousemove',dm);document.removeEventListener('touchmove',dm);document.removeEventListener('mouseup',de);document.removeEventListener('touchend',de);}
+  h.addEventListener('mousedown',ds);h.addEventListener('touchstart',ds,{passive:false});
+  // resize
+  var rh=document.createElement('div');
+  rh.style.cssText='position:absolute;bottom:0;right:0;width:18px;height:18px;cursor:se-resize;touch-action:none;z-index:1';
+  rh.innerHTML='<svg style="position:absolute;bottom:3px;right:3px" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M7 1L1 7M7 4L4 7" stroke="rgba(255,255,255,.25)" stroke-width="1.3" stroke-linecap="round"/></svg>';
+  w.appendChild(rh);
+  var rsX,rsW,rs=false;
+  function rds(e){e.stopPropagation();e.preventDefault();rs=true;var t=e.touches?e.touches[0]:e;rsX=t.clientX;rsW=w.offsetWidth;document.addEventListener('mousemove',rdm);document.addEventListener('touchmove',rdm,{passive:false});document.addEventListener('mouseup',rde);document.addEventListener('touchend',rde);}
+  function rdm(e){if(!rs)return;var t=e.touches?e.touches[0]:e;var nw=Math.max(180,Math.min(400,rsW+(t.clientX-rsX)));w.style.width=nw+'px';cwSize(w);if(e.cancelable)e.preventDefault();}
+  function rde(){rs=false;document.removeEventListener('mousemove',rdm);document.removeEventListener('touchmove',rdm);document.removeEventListener('mouseup',rde);document.removeEventListener('touchend',rde);}
+  rh.addEventListener('mousedown',rds);rh.addEventListener('touchstart',rds,{passive:false});
+  // visualViewport reanchor
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',function(){
+      if(w.classList.contains('fs'))return;
+      var vv=window.visualViewport;
+      var ct=parseFloat(w.style.top)||0;
+      var max=vv.offsetTop+vv.height-w.offsetHeight;
+      if(ct>max)w.style.top=Math.max(vv.offsetTop,max)+'px';
+    });
+  }
+  // auto-exit fs on desktop
+  if(window.matchMedia){
+    window.matchMedia('(min-width:768px)').addEventListener('change',function(e){
+      if(e.matches)cwExitFs();
+    });
+  }
+}
+
+// keyboard → calc
+document.addEventListener('keydown',function(e){
+  var w=cwEl('cw');
+  if(!w||!w.classList.contains('vis'))return;
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var tag=((document.activeElement||{}).tagName||'').toLowerCase();
+  if(tag==='input'||tag==='textarea')return;
+  var k=e.key;
+  if(k==='Enter'||k==='='){cw('=');e.preventDefault();return}
+  if(k==='Backspace'||k==='Delete'){cw('BS');e.preventDefault();return}
+  if(k==='*'){cw('×');e.preventDefault();return}
+  if(k==='/'){cw('÷');e.preventDefault();return}
+  if(k==='Escape'){cwToggle();e.preventDefault();return}
+  if(/^[0-9+\-().%]$/.test(k)){cw(k);e.preventDefault();return}
+  if(k==='c'||k==='C'){cw('C');e.preventDefault();return}
+},true);
+
+// ── SETTINGS ──
+// Simple keyword rules - no regex exposed to user
+// kw = keyword suffix user types (case-insensitive), lbl = formatted label, satuan = auto satuan
+var STG_UNIT_DEFAULTS=[
+  {kw:'kg',lbl:'Kilogram',satuan:'sachet'},
+  {kw:'gr',lbl:'Gram',satuan:'sachet'},
+  {kw:'g',lbl:'Gram',satuan:'sachet'},
+  {kw:'mg',lbl:'Miligram',satuan:'sachet'},
+  {kw:'liter',lbl:'Liter',satuan:'botol'},
+  {kw:'litre',lbl:'Liter',satuan:'botol'},
+  {kw:'l',lbl:'Liter',satuan:'botol'},
+  {kw:'ml',lbl:'mL',satuan:'botol'},
+  {kw:'cc',lbl:'cc',satuan:'botol'},
+  {kw:'cm',lbl:'cm',satuan:'pcs'},
+  {kw:'m',lbl:'Meter',satuan:'pcs'},
+];
+var STG_SAT_DEFAULTS=['pcs','botol','pouch','sachet','kaleng','pack','tube','vial'];
+
+function gSTG(){return gl('sg5_settings',{unitMap:STG_UNIT_DEFAULTS.slice(),satuanList:STG_SAT_DEFAULTS.slice()})}
+function sSTG(v){sl('sg5_settings',v)}
+
+function openSettings(tab){
+  var sh=document.getElementById('stg-sheet');
+  if(!sh)return;
+  sh.classList.add('open');
+  // sync dark toggle
+  var dt=document.getElementById('stg-dark-toggle');
+  if(dt)dt.checked=document.body.classList.contains('dark');
+  // sync gudang name
+  if(APP.gid){
+    var g=gG().find(function(x){return x.id===APP.gid});
+    var lbl=document.getElementById('stg-gudang-name-lbl');
+    if(lbl&&g)lbl.textContent=g.nama;
+  }
+  // calc storage
+  stgCalcStorage();
+  // render unit map and satuan
+  stgRenderUnitMap();
+  stgRenderSatuanList();
+  // activate tab
+  if(tab){
+    var btn=document.querySelector('.stg-tab[onclick*="\''+tab+'\'"]');
+    if(btn)stgTab(tab,btn);
+  } else {
+    stgTab('umum',document.querySelector('.stg-tab'));
+  }
+}
+
+function closeSettings(){
+  var sh=document.getElementById('stg-sheet');
+  if(sh)sh.classList.remove('open');
+}
+
+function stgTab(name,btn){
+  document.querySelectorAll('.stg-tab').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.stg-sec').forEach(function(s){s.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  var sec=document.getElementById('stg-'+name);
+  if(sec)sec.classList.add('active');
+}
+
+function stgCalcStorage(){
+  try{
+    var total=0;
+    for(var k in localStorage){
+      if(localStorage.hasOwnProperty(k)&&k.startsWith('sg5_')){
+        total+=(localStorage[k]||'').length*2;
+      }
+    }
+    var el=document.getElementById('stg-storage-size');
+    if(el){
+      var kb=(total/1024).toFixed(1);
+      el.textContent=kb+' KB digunakan';
+    }
+  }catch(e){}
+}
+
+function stgRenderUnitMap(){
+  var cfg=gSTG();
+  var wrap=document.getElementById('stg-unit-map');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  (cfg.unitMap||[]).forEach(function(item,i){
+    var sat=satOptsSimple(item.satuan||'pcs');
+    var card=document.createElement('div');
+    card.className='stg-unit-card';
+    card.innerHTML=
+      '<input class="stg-unit-kw" value="'+esc(item.kw||item.pat||'')+'" placeholder="kg" title="Singkatan yang diketik user" oninput="stgSaveUnitRow('+i+',\'kw\',this.value)">'+
+      '<span class="stg-unit-arr">→</span>'+
+      '<input class="stg-unit-lbl" value="'+esc(item.lbl||'')+'" placeholder="Kilogram" title="Label yang akan ditampilkan" oninput="stgSaveUnitRow('+i+',\'lbl\',this.value)">'+
+      '<select class="stg-unit-sat" title="Satuan otomatis" onchange="stgSaveUnitRow('+i+',\'satuan\',this.value)">'+sat+'</select>'+
+      '<button class="stg-unit-del" onclick="stgDelUnitRow('+i+')" title="Hapus">'+
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'+
+      '</button>';
+    wrap.appendChild(card);
+  });
+}
+
+function satOptsSimple(sel){
+  var cfg=gSTG();
+  var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS;
+  return list.map(function(s){return '<option value="'+s+'"'+(sel===s?' selected':'')+'>'+s+'</option>'}).join('');
+}
+
+function stgSaveUnitRow(i,field,val){
+  var cfg=gSTG();
+  if(cfg.unitMap[i])cfg.unitMap[i][field]=val;
+  sSTG(cfg);
+}
+
+function stgDelUnitRow(i){
+  var cfg=gSTG();
+  cfg.unitMap.splice(i,1);
+  sSTG(cfg);
+  stgRenderUnitMap();
+}
+
+function stgAddUnitRow(){
+  var cfg=gSTG();
+  cfg.unitMap.push({kw:'',lbl:'',satuan:'pcs'});
+  sSTG(cfg);
+  stgRenderUnitMap();
+  // focus last kw input
+  setTimeout(function(){
+    var cards=document.querySelectorAll('.stg-unit-card');
+    if(cards.length){var inp=cards[cards.length-1].querySelector('.stg-unit-kw');if(inp)inp.focus();}
+  },50);
+}
+
+function stgRenderSatuanList(){
+  var cfg=gSTG();
+  var wrap=document.getElementById('stg-sat-list');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS;
+  list.forEach(function(s,i){
+    var tag=document.createElement('div');
+    tag.className='stg-sat-tag';
+    tag.innerHTML=esc(s)+
+      '<button class="stg-sat-del" onclick="stgDelSatuan('+i+')" title="Hapus '+esc(s)+'">'+
+        '<svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>'+
+      '</button>';
+    wrap.appendChild(tag);
+  });
+}
+
+function stgAddSatuan(){
+  var inp=document.getElementById('stg-sat-inp');
+  var val=(inp?inp.value.trim().toLowerCase():'');
+  if(!val){toast('Ketik nama satuan dulu','err');return;}
+  var cfg=gSTG();
+  var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS.slice();
+  if(list.indexOf(val)!==-1){toast('"'+val+'" sudah ada','err');if(inp)inp.value='';return;}
+  list.push(val);
+  cfg.satuanList=list;
+  sSTG(cfg);
+  if(inp)inp.value='';
+  stgRenderSatuanList();
+  toast('"'+val+'" ditambahkan','ok');
+}
+
+function stgDelSatuan(i){
+  var cfg=gSTG();
+  var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS.slice();
+  if(list.length<=1){toast('Minimal 1 satuan harus ada','err');return;}
+  var nama=list[i];
+  // Warn if used by any product
+  var usedBy=gP().filter(function(p){return p.satuan===nama});
+  if(usedBy.length>0){
+    openCfm('Hapus Satuan "'+nama+'"',
+      '<span class="hl">'+usedBy.length+' produk</span> masih menggunakan satuan ini. Tetap hapus dari daftar?',
+      function(){
+        list.splice(i,1);cfg.satuanList=list;sSTG(cfg);
+        stgRenderSatuanList();toast('"'+nama+'" dihapus dari daftar');
+      },'Hapus');
+    return;
+  }
+  list.splice(i,1);cfg.satuanList=list;sSTG(cfg);
+  stgRenderSatuanList();
+  toast('"'+nama+'" dihapus');
+}
+
+function stgShowPrivacy(){
+  document.getElementById('stg-privacy-sheet').classList.add('open');
+}
+
+// Export/Import data transfer
+function stgGenExport(){
+  try{
+    var data={v:2,ts:Date.now(),gudang:gG(),prods:{},ops:{}};
+    gG().forEach(function(g){
+      data.prods[g.id]=gl('sg5_p_'+g.id,[]);
+      data.ops[g.id]=gl('sg5_o_'+g.id,[]);
+    });
+    var json=JSON.stringify(data);
+    var code=btoa(unescape(encodeURIComponent(json)));
+    document.getElementById('stg-export-code').textContent=code;
+    toast('Kode berhasil dibuat','ok');
+  }catch(e){toast('Gagal generate kode','err');}
+}
+
+function stgCopyCode(){
+  var code=document.getElementById('stg-export-code').textContent;
+  if(!code||code==='Klik "Generate" untuk membuat kode')return;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(code).then(function(){toast('Kode disalin!','ok');}).catch(function(){stgCopyFallback(code);});
+  } else {stgCopyFallback(code);}
+}
+
+function stgCopyFallback(text){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');toast('Kode disalin!','ok');}catch(e){toast('Gagal menyalin','err');}
+  document.body.removeChild(ta);
+}
+
+function stgDoImport(){
+  var code=(document.getElementById('stg-import-code').value||'').trim();
+  if(!code){toast('Tempel kode ekspor terlebih dahulu','err');return;}
+  try{
+    var json=decodeURIComponent(escape(atob(code)));
+    var data=JSON.parse(json);
+    if(!data.v||!data.gudang){throw new Error('Invalid');}
+    var existing=gG();
+    var added=0;
+    data.gudang.forEach(function(g){
+      var dup=existing.find(function(e){return e.id===g.id||e.nama===g.nama});
+      if(!dup){existing.push(g);added++;}
+      sl('sg5_p_'+g.id,data.prods[g.id]||[]);
+      sl('sg5_o_'+g.id,data.ops[g.id]||[]);
+    });
+    sG(existing);
+    document.getElementById('stg-import-code').value='';
+    toast(added+' gudang baru ditambahkan','ok');
+    renderHome();
+  }catch(e){toast('Kode tidak valid atau rusak','err');}
+}
+
+// Override satOpts to use settings satuan list
+function satOpts(sel){
+  var cfg=gSTG();
+  var list=cfg.satuanList&&cfg.satuanList.length?cfg.satuanList:STG_SAT_DEFAULTS;
+  return list.map(function(s){return '<option value="'+s+'"'+(sel===s?' selected':'')+'>'+s+'</option>'}).join('');
+}
+
+// Override autoSatuan to use settings unit map
+function autoSatuan(val,satuanEl,onlyIfDefault){
+  if(!satuanEl)return;
+  if(onlyIfDefault&&satuanEl.value!=='pcs')return;
+  var v=(val||'').trim();
+  var cfg=gSTG();
+  var map=cfg.unitMap&&cfg.unitMap.length?cfg.unitMap:STG_UNIT_DEFAULTS;
+  for(var i=0;i<map.length;i++){
+    var kw=map[i].kw||map[i].pat||'';
+    if(!kw)continue;
+    try{
+      // Build regex: number + optional space + keyword at end, case-insensitive
+      var rxStr='\\d+(?:\\.\\d+)?\\s*'+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b';
+      var rx=new RegExp(rxStr,'i');
+      if(rx.test(v)){
+        if(map[i].satuan&&satuanEl.tagName==='SELECT'){
+          var exists=false;
+          for(var j=0;j<satuanEl.options.length;j++){if(satuanEl.options[j].value===map[i].satuan){exists=true;break;}}
+          if(exists)satuanEl.value=map[i].satuan;
+        }
+        return;
+      }
+    }catch(e){}
+  }
+}
+
+// Override fmtUnit to use settings unit map
+function fmtUnit(text){
+  if(!text)return text;
+  var t=text.trim();
+  var cfg=gSTG();
+  var map=cfg.unitMap&&cfg.unitMap.length?cfg.unitMap:STG_UNIT_DEFAULTS;
+  for(var i=0;i<map.length;i++){
+    var kw=map[i].kw||map[i].pat||'';
+    if(!kw||!map[i].lbl)continue;
+    try{
+      var rxStr='^(\\d+(?:\\.\\d+)?)\\s*'+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b(.*)$';
+      var rx=new RegExp(rxStr,'i');
+      var m=t.match(rx);
+      if(m){
+        var n=m[1];
+        var suffix=(m[2]||'').trim();
+        return (n+' '+map[i].lbl+(suffix?' '+suffix:'')).trim();
+      }
+    }catch(e){}
+  }
+  return t;
+}
+
+(function init(){
+  var now=new Date();
+  document.getElementById('hdate').textContent=now.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('fyear').textContent=now.getFullYear();
+  var dark=gl('sg5_dark',false);
+  if(dark){document.body.classList.add('dark');updateDarkIcons(true);}
+  history.replaceState({screen:'home'},'');
+  var list=gG();
+  if(!list.length){var sample={id:uid(),nama:'Gudang Utama',createdAt:Date.now()};sG([sample]);}
+  var sess=gl('sg5_session',null);
+  if(sess&&sess.gid){
+    var g=gG().find(function(x){return x.id===sess.gid});
+    if(g){
+      enterGudang(sess.gid);
+      if(sess.tab&&sess.tab!=='produk')setTimeout(function(){goTab(sess.tab)},50);
+      cwInitDrag();
+      return;
+    }
+  }
+  renderHome();
+  cwInitDrag();
+})();
 
 function openEditOp(id){
   var o=gO().find(function(x){return x.id===id});
@@ -1727,6 +2784,7 @@ function saveEditOp(){
   pushUndo({type:'opname',data:gO().slice(),produk:gP().slice()});
   list[idx]=Object.assign({},list[idx],{isiPerDus:isi,dusPenuh:dus,dusBukaPcs:buka,eceran:ecer,totalLangsung:direct,totalPcs:total});
   sO(list);
+  if(minimizedModalId==='m-editop')restoreMinimizedModal();
   closeModal('m-editop');
   toast('Data opname diperbarui','ok');
   renderTbOpname();
@@ -1752,6 +2810,7 @@ function pushUndo(snapshot){
   undoStack.push(snapshot);
   if(undoStack.length>40)undoStack.shift();
   redoStack=[];
+  saveUndoStacks();
   updateUndoRedoBtns();
 }
 
@@ -1769,6 +2828,7 @@ function doUndo(){
   if(snap.produk!==undefined)sP(snap.produk);
   if(snap.opname!==undefined)sO(snap.opname);
   else if(snap.data!==undefined)sO(snap.data);
+  saveUndoStacks();
   updateUndoRedoBtns();
   renderTbProduk();
   renderTbOpname();
@@ -1783,6 +2843,7 @@ function doRedo(){
   if(snap.produk!==undefined)sP(snap.produk);
   if(snap.opname!==undefined)sO(snap.opname);
   else if(snap.data!==undefined)sO(snap.data);
+  saveUndoStacks();
   updateUndoRedoBtns();
   renderTbProduk();
   renderTbOpname();
@@ -1822,6 +2883,8 @@ function triggerUndo(){
 }
 
 function closeProdukModal(){
+  // If minimized, restore first then show discard bar
+  if(minimizedModalId==='m-produk'){restoreMinimizedModal();}
   var dirty=APP.formDirty;
   var bar=document.getElementById('produk-discard-bar');
   if(dirty){
@@ -1844,113 +2907,7 @@ function confirmProdukDiscard(){
   closeModal('m-produk');
 }
 
-function toggleCalc(){
-  var pop=document.getElementById('calc-popup');
-  var btn=document.getElementById('btn-calc');
-  var show=!pop.classList.contains('show');
-  pop.classList.toggle('show',show);
-  btn.classList.toggle('active',show);
-  if(show)document.addEventListener('mousedown',calcOutside,true);
-  else document.removeEventListener('mousedown',calcOutside,true);
-}
 
-function calcOutside(e){
-  var pop=document.getElementById('calc-popup');
-  var btn=document.getElementById('btn-calc');
-  if(!pop.contains(e.target)&&e.target!==btn&&!btn.contains(e.target)){
-    pop.classList.remove('show');
-    btn.classList.remove('active');
-    document.removeEventListener('mousedown',calcOutside,true);
-  }
-}
-
-function calcPress(k){
-  var expr=calcState.expr;
-  var afterEq=calcState.afterEq;
-  if(k==='C'){calcState={expr:'',afterEq:false};calcRender();return}
-  if(k==='='){
-    var res=calcEval(expr);
-    if(res===null){calcState.expr='Error';calcState.afterEq=true;calcRender();return}
-    var resStr=calcFmt(res);
-    calcState.expr=resStr;
-    calcState.afterEq=true;
-    calcRender();
-    return;
-  }
-  var isOp=k==='+'||k==='-'||k==='×'||k==='÷';
-  var isNum=/[0-9]/.test(k)||k==='.';
-  if(afterEq){
-    if(isOp){calcState.expr=calcState.expr+k;calcState.afterEq=false}
-    else{calcState.expr=k==='±'?'':(k==='('||k===')'?k:k);calcState.afterEq=false}
-    calcRender();return;
-  }
-  if(k==='±'){
-    var tokens=expr.match(/[+\-×÷().\d]+/g)||[];
-    var lastNum=tokens[tokens.length-1];
-    if(lastNum&&/^\d/.test(lastNum)){
-      var pos=expr.lastIndexOf(lastNum);
-      var before=expr.slice(0,pos);
-      var prevChar=before.slice(-1);
-      if(prevChar==='-')calcState.expr=before.slice(0,-1)+lastNum;
-      else calcState.expr=before+'-'+lastNum;
-    }
-    calcRender();return;
-  }
-  if(k==='('||k===')'){calcState.expr=expr+k;calcRender();return}
-  if(isOp&&expr===''){calcState.expr=k;calcRender();return}
-  var lastChar=expr.slice(-1);
-  if(isOp&&'+-×÷'.indexOf(lastChar)!==-1){calcState.expr=expr.slice(0,-1)+k;calcRender();return}
-  if(k==='.'&&/\d*\.\d*$/.test(expr.split(/[+\-×÷()]/).pop())){calcRender();return}
-  calcState.expr=expr+k;
-  calcRender();
-}
-
-function calcEval(raw){
-  if(!raw||raw==='Error')return null;
-  try{
-    var s=raw.replace(/×/g,'*').replace(/÷/g,'/');
-    var open=(s.match(/\(/g)||[]).length;
-    var close=(s.match(/\)/g)||[]).length;
-    while(close<open){s+=')'};
-    var result=Function('"use strict";return('+s+')')();
-    if(!isFinite(result))return null;
-    return Math.round(result*1e10)/1e10;
-  }catch(e){return null}
-}
-
-function calcFmt(n){
-  if(n===null||n===undefined)return 'Error';
-  var s=String(n);
-  if(s.indexOf('.')!==-1){
-    s=parseFloat(n.toFixed(10)).toString();
-  }
-  return s;
-}
-
-function calcRender(){
-  var expr=calcState.expr;
-  var preview='';
-  if(!calcState.afterEq&&expr&&expr!=='Error'){
-    var r=calcEval(expr);
-    if(r!==null)preview='= '+calcFmt(r);
-  }
-  document.getElementById('calc-expr').textContent=expr||'0';
-  document.getElementById('calc-main').textContent=calcState.afterEq?(expr||'0'):(expr?expr:'0');
-  document.getElementById('calc-preview').textContent=preview;
-}
-
-(function init(){
-  var now=new Date();
-  document.getElementById('hdate').textContent=now.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-  document.getElementById('fyear').textContent=now.getFullYear();
-  history.replaceState({screen:'home'},'');
-  var list=gG();
-  if(!list.length){
-    var sample={id:uid(),nama:'Gudang Utama',createdAt:Date.now()};
-    sG([sample]);
-  }
-  renderHome();
-})();
 </script>
 </body>
 </html>
