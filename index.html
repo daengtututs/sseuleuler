@@ -14,8 +14,11 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 1
 .logo{font-family:var(--H);font-size:15px;font-weight:700}
 .logo span{color:var(--accent)}
 .hdate{font-size:11px;color:var(--text3)}
-.hbtn{background:none;border:none;color:var(--text2);cursor:pointer;padding:8px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-width:36px;min-height:36px}
+.hbtn{background:none;border:none;color:var(--text2);cursor:pointer;padding:8px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-width:36px;min-height:36px;transition:background .1s,color .1s}
 .hbtn:active{background:var(--s2)}
+.hbtn:disabled{opacity:.28;pointer-events:none;cursor:default}
+.hbtn.active{background:var(--al);color:var(--accent)}
+.hbtns-right{display:flex;align-items:center;gap:0;flex-shrink:0}
 .h-gudang-name{font-family:var(--H);font-size:14px;font-weight:700;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px}
 nav{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 4px}
 nav::-webkit-scrollbar{display:none}
@@ -239,6 +242,36 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 .form-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .span2{grid-column:1/-1}
 .sec-label{font-family:var(--H);font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.undo-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1f2937;color:#fff;border-radius:12px;z-index:997;opacity:0;transition:opacity .22s,transform .22s;pointer-events:none;box-shadow:var(--shx);min-width:260px;max-width:calc(100vw - 32px);overflow:hidden;display:flex;flex-direction:column}
+.undo-bar.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.undo-bar-inner{display:flex;align-items:center;gap:12px;padding:10px 12px 8px}
+.undo-bar-msg{font-family:var(--H);font-size:13px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.undo-bar-btn{background:none;border:1.5px solid rgba(255,255,255,.35);border-radius:20px;color:#fff;font-family:var(--H);font-size:12px;font-weight:700;padding:4px 13px;cursor:pointer;flex-shrink:0;letter-spacing:.04em;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.undo-bar-btn:active{background:rgba(255,255,255,.12)}
+.undo-prog{height:3px;background:rgba(255,255,255,.15)}
+.undo-fill{height:100%;background:var(--accent);width:100%}
+.calc-popup{position:fixed;top:58px;right:8px;width:220px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shx);z-index:500;overflow:hidden;display:none}
+.calc-popup.show{display:block;animation:calcIn .15s ease}
+@keyframes calcIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.calc-display{background:#111827;padding:12px 14px 10px;text-align:right;user-select:none}
+.calc-expr{font-size:12px;color:rgba(255,255,255,.4);min-height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--B)}
+.calc-main{font-family:var(--H);font-size:26px;font-weight:700;color:#fff;line-height:1.2;min-height:32px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calc-preview{font-size:11px;color:rgba(255,255,255,.35);min-height:15px;font-family:var(--B)}
+.cbg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2)}
+.cbtn{background:var(--white);border:none;font-family:var(--H);font-size:15px;font-weight:600;padding:13px 0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;color:var(--text);transition:background .08s;user-select:none;-webkit-user-select:none}
+.cbtn:active{background:var(--s2)}
+.cbtn.cop{color:var(--accent)}
+.cbtn.cfn{color:var(--text2);font-size:13px;font-weight:700;background:var(--s2)}
+.cbtn.cfn:active{background:var(--border)}
+.cbtn.ceq{background:var(--accent);color:#fff}
+.cbtn.ceq:active{background:#2d5de0}
+.cbtn.ccl{color:var(--red);background:var(--s2)}
+.cbtn.ccl:active{background:var(--rb)}
+.hbtn:disabled{opacity:.28;pointer-events:none;cursor:default}
+.hbtn.active{background:var(--al);color:var(--accent)}
+.hbtns-right{display:flex;align-items:center;flex-shrink:0}
+.discard-bar{background:var(--ol);border-top:2px solid var(--ob);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}
+.discard-msg{font-family:var(--H);font-size:13px;font-weight:600;color:var(--orange)}
 @media(min-width:768px){
   main{padding:24px;padding-bottom:72px}
   header{padding:0 28px}
@@ -298,9 +331,20 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     </button>
     <div class="h-gudang-name" id="h-gudang-name"></div>
-    <button class="hbtn" onclick="openEditGudang()" title="Pengaturan Gudang">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-    </button>
+    <div class="hbtns-right">
+      <button class="hbtn" id="btn-undo" onclick="doUndo()" title="Undo (Ctrl+Z)" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/></svg>
+      </button>
+      <button class="hbtn" id="btn-redo" onclick="doRedo()" title="Redo (Ctrl+Y)" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 019-9 9 9 0 016 2.3l3 2.7"/></svg>
+      </button>
+      <button class="hbtn" id="btn-calc" onclick="toggleCalc()" title="Kalkulator">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="16" y2="18"/></svg>
+      </button>
+      <button class="hbtn" onclick="openEditGudang()" title="Pengaturan Gudang">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </button>
+    </div>
   </header>
   <nav>
     <button class="tab active" onclick="goTab('produk')">Produk</button>
@@ -465,7 +509,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
     <input type="hidden" id="eid-produk">
     <div class="fg" style="margin-bottom:14px">
       <label>Nama Produk <span style="color:var(--red)">*</span></label>
-      <input type="text" id="f-nama" placeholder="cth: Toxiput, Besromil, Nutrimol">
+      <input type="text" id="f-nama" placeholder="cth: Toxiput, Besromil, Nutrimol" oninput="APP.formDirty=true">
       <div class="hint" id="f-nama-hint">Satu nama produk bisa punya banyak varian</div>
     </div>
     <div id="mode-multi">
@@ -481,9 +525,9 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
     <div id="mode-single" style="display:none">
       <div style="font-family:var(--H);font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Detail Varian</div>
       <div class="form-2col">
-        <div class="fg"><label>Varian <span style="color:var(--red)">*</span></label><input type="text" id="f-varian" placeholder="cth: 250gr, 500ml" oninput="autoSatuan(this.value,document.getElementById('f-satuan'),false)"></div>
-        <div class="fg"><label>Brand</label><input type="text" id="f-brand" placeholder="cth: Medion, Virbac"></div>
-        <div class="fg"><label>Kategori</label><input type="text" id="f-kat" placeholder="cth: Obat Hewan"></div>
+        <div class="fg"><label>Varian <span style="color:var(--red)">*</span></label><input type="text" id="f-varian" placeholder="cth: 250gr, 500ml" oninput="APP.formDirty=true;autoSatuan(this.value,document.getElementById('f-satuan'),false)"></div>
+        <div class="fg"><label>Brand</label><input type="text" id="f-brand" placeholder="cth: Medion, Virbac" oninput="APP.formDirty=true"></div>
+        <div class="fg"><label>Kategori</label><input type="text" id="f-kat" placeholder="cth: Obat Hewan" oninput="APP.formDirty=true"></div>
         <div class="fg"><label>Satuan <span style="color:var(--red)">*</span></label>
           <select id="f-satuan"><option value="pcs">pcs</option><option value="botol">botol</option><option value="pouch">pouch</option><option value="sachet">sachet</option><option value="kaleng">kaleng</option><option value="pack">pack</option><option value="tube">tube</option><option value="vial">vial</option></select>
         </div>
@@ -492,8 +536,15 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
       </div>
     </div>
     <div class="ma">
-      <button class="btn bo" onclick="closeModal('m-produk')">Batal</button>
+      <button class="btn bo" onclick="closeProdukModal()">Batal</button>
       <button class="btn bp" id="mp-save-btn" onclick="saveProduk()">Simpan</button>
+    </div>
+    <div id="produk-discard-bar" class="discard-bar" style="display:none">
+      <span class="discard-msg">Buang semua perubahan?</span>
+      <div style="display:flex;gap:6px">
+        <button class="btn bo bsm" onclick="hideProdukDiscard()">Lanjut Edit</button>
+        <button class="btn bd bsm" onclick="confirmProdukDiscard()">Ya, Buang</button>
+      </div>
     </div>
   </div>
 </div>
@@ -551,15 +602,57 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
   </div>
 </div>
 
+<div id="undo-bar" class="undo-bar">
+  <div class="undo-bar-inner">
+    <span id="undo-bar-msg" class="undo-bar-msg"></span>
+    <button class="undo-bar-btn" onclick="triggerUndo()">UNDO</button>
+  </div>
+  <div class="undo-prog"><div id="undo-fill" class="undo-fill"></div></div>
+</div>
+
+<div id="calc-popup" class="calc-popup">
+  <div class="calc-display">
+    <div id="calc-expr" class="calc-expr">0</div>
+    <div id="calc-main" class="calc-main">0</div>
+    <div id="calc-preview" class="calc-preview"></div>
+  </div>
+  <div class="cbg">
+    <button class="cbtn ccl" onclick="calcPress('C')">C</button>
+    <button class="cbtn cfn" onclick="calcPress('(')">(</button>
+    <button class="cbtn cfn" onclick="calcPress(')')">)</button>
+    <button class="cbtn cop" onclick="calcPress('÷')">÷</button>
+    <button class="cbtn" onclick="calcPress('7')">7</button>
+    <button class="cbtn" onclick="calcPress('8')">8</button>
+    <button class="cbtn" onclick="calcPress('9')">9</button>
+    <button class="cbtn cop" onclick="calcPress('×')">×</button>
+    <button class="cbtn" onclick="calcPress('4')">4</button>
+    <button class="cbtn" onclick="calcPress('5')">5</button>
+    <button class="cbtn" onclick="calcPress('6')">6</button>
+    <button class="cbtn cop" onclick="calcPress('-')">−</button>
+    <button class="cbtn" onclick="calcPress('1')">1</button>
+    <button class="cbtn" onclick="calcPress('2')">2</button>
+    <button class="cbtn" onclick="calcPress('3')">3</button>
+    <button class="cbtn cop" onclick="calcPress('+')">+</button>
+    <button class="cbtn cfn" onclick="calcPress('±')">±</button>
+    <button class="cbtn" onclick="calcPress('0')">0</button>
+    <button class="cbtn" onclick="calcPress('.')">.</button>
+    <button class="cbtn ceq" onclick="calcPress('=')">=</button>
+  </div>
+</div>
+
 <footer><div class="copy">&copy; <span id="fyear"></span> <b>ailuasc</b> &mdash; StokGudang. All rights reserved.</div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
-var APP = {screen:'home',gid:null,tab:'produk',expMode:'ringkasan',cfmCb:null,search:'',accOpen:{},ringFilter:'all',vrCnt:0,nameLocked:false};
+var APP = {screen:'home',gid:null,tab:'produk',expMode:'ringkasan',cfmCb:null,search:'',accOpen:{},ringFilter:'all',vrCnt:0,nameLocked:false,formDirty:false};
 var prodGroups = [];
 var csbData = {produk:[]};
 var csbTimers = {};
 var dash = '<span style="color:var(--text3)">-</span>';
+var undoStack = [];
+var redoStack = [];
+var undoBarTimer = null;
+var calcState = {expr:'',afterEq:false};
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5)}
 function gl(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
@@ -581,6 +674,7 @@ function satOpts(sel){return ['pcs','botol','pouch','sachet','kaleng','pack','tu
 
 function enterGudang(id){
   APP.gid=id;APP.screen='gudang';APP.tab='produk';APP.search='';APP.accOpen={};
+  undoStack=[];redoStack=[];updateUndoRedoBtns();
   var g=gG().find(function(x){return x.id===id});
   if(!g)return;
   history.pushState({screen:'gudang',id:id},'');
@@ -843,6 +937,8 @@ function clearSearchProduk(){
 }
 
 function openAddProduk(prefillName){
+  APP.formDirty=false;
+  document.getElementById('produk-discard-bar').style.display='none';
   document.getElementById('m-produk-title').textContent='Tambah Produk';
   document.getElementById('eid-produk').value='';
   document.getElementById('f-nama').value=prefillName||'';
@@ -897,6 +993,8 @@ function saveRename(){
 }
 
 function editVariant(id){
+  APP.formDirty=false;
+  document.getElementById('produk-discard-bar').style.display='none';
   var p=gP().find(function(x){return x.id===id});
   if(!p)return;
   document.getElementById('m-produk-title').textContent='Edit Varian';
@@ -1030,8 +1128,9 @@ function saveProduk(){
     var dup=list.find(function(p){return p.nama.toLowerCase()===nama.toLowerCase()&&p.varian.toLowerCase()===varian.toLowerCase()&&p.id!==eid});
     if(dup){toast('Kombinasi nama dan varian sudah ada','err');return}
     var idx=list.findIndex(function(p){return p.id===eid});
+    pushUndo({type:'produk',produk:gP().slice()});
     if(idx!==-1)list[idx]={id:eid,nama:nama,varian:varian,brand:brand,kategori:kat,satuan:satuan,isi:isi,keterangan:ket};
-    sP(list);closeModal('m-produk');toast('Produk diperbarui','ok');renderTbProduk();return;
+    sP(list);APP.formDirty=false;closeModal('m-produk');toast('Produk diperbarui','ok');renderTbProduk();return;
   }
   var rows=document.querySelectorAll('.vr-row');
   if(!rows.length){toast('Tambahkan minimal 1 varian','err');return}
@@ -1066,9 +1165,11 @@ function saveProduk(){
   });
   if(errors.length){toast(errors[0],'err');return}
   if(!toAdd.length){toast('Tidak ada varian valid','err');return}
+  pushUndo({type:'all',produk:gP().slice(),opname:gO().slice()});
   toAdd.forEach(function(p){list.push(p)});
   sP(list);
   if(opToAdd.length){var opList=gO();opToAdd.forEach(function(o){opList.push(o)});sO(opList)}
+  APP.formDirty=false;
   closeModal('m-produk');
   toast(toAdd.length+' varian ditambahkan'+(opToAdd.length?' dengan stok awal':''),'ok');
   APP.accOpen[nama]=true;
@@ -1078,10 +1179,12 @@ function saveProduk(){
 function cfmDelVariant(id){
   var p=gP().find(function(x){return x.id===id});
   if(!p)return;
-  openCfm('Hapus Varian','Varian <span class="hl">'+esc(p.nama)+' &mdash; '+esc(p.varian)+'</span> akan dihapus beserta riwayat opnamenya.',function(){
+  openCfm('Hapus Varian','Varian <span class="hl">'+esc(p.nama)+' &mdash; '+esc(p.varian)+'</span> akan dihapus. Bisa di-undo setelah hapus.',function(){
+    pushUndo({type:'all',produk:gP().slice(),opname:gO().slice()});
     sP(gP().filter(function(x){return x.id!==id}));
     sO(gO().filter(function(o){return o.productId!==id}));
-    renderTbProduk();toast('Varian dihapus');
+    renderTbProduk();
+    showUndoBar('Varian "'+p.varian+'" dihapus');
   },'Hapus');
 }
 
@@ -1089,12 +1192,14 @@ function cfmDelGroup(gidx){
   var name=prodGroups[gidx];
   if(!name)return;
   var variants=gP().filter(function(p){return p.nama===name});
-  openCfm('Hapus Semua Varian','Semua <span class="hl">'+variants.length+' varian</span> produk <span class="hl">'+esc(name)+'</span> beserta riwayat opnamenya akan dihapus permanen.',function(){
+  openCfm('Hapus Semua Varian','Semua <span class="hl">'+variants.length+' varian</span> produk <span class="hl">'+esc(name)+'</span> beserta riwayat opnamenya akan dihapus.',function(){
+    pushUndo({type:'all',produk:gP().slice(),opname:gO().slice()});
     var ids=variants.map(function(v){return v.id});
     sP(gP().filter(function(p){return p.nama!==name}));
     sO(gO().filter(function(o){return ids.indexOf(o.productId)===-1}));
     delete APP.accOpen[name];
-    renderTbProduk();toast('Produk "'+name+'" dihapus');
+    renderTbProduk();
+    showUndoBar('Produk "'+name+'" dihapus');
   },'Hapus Semua');
 }
 
@@ -1259,6 +1364,7 @@ function simpanBatch(){
     saved++;
   });
   if(!saved){toast('Tidak ada data yang diisi','err');return}
+  pushUndo({type:'opname',data:gO().slice(),produk:gP().slice()});
   sO(opList);toast(saved+' varian tersimpan','ok');resetOpname();renderTbOpname();
 }
 
@@ -1309,8 +1415,13 @@ function renderTbOpname(){
 }
 
 function delOp(id){
-  sO(gO().filter(function(o){return o.id!==id}));
-  renderTbOpname();toast('Entri dihapus');
+  var o=gO().find(function(x){return x.id===id});
+  if(!o)return;
+  pushUndo({type:'opname',data:gO().slice(),produk:gP().slice()});
+  sO(gO().filter(function(x){return x.id!==id}));
+  renderTbOpname();
+  if(APP.tab==='ringkasan')renderRingkasan();
+  showUndoBar('Opname "'+o.nama+' – '+o.varian+'" dihapus');
 }
 
 function getLatestMap(){
@@ -1495,11 +1606,39 @@ function closeModal(id){
 }
 
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){var open=document.querySelector('.mov.open');if(open)closeModal(open.id)}
+  if(e.key==='Escape'){
+    var open=document.querySelector('.mov.open');
+    if(open){
+      if(open.id==='m-produk'){closeProdukModal();return}
+      closeModal(open.id);
+    }
+    var cp=document.getElementById('calc-popup');
+    if(cp&&cp.classList.contains('show')){toggleCalc();return}
+    return;
+  }
+  if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();doUndo();return}
+  if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();doRedo();return}
+  var cp=document.getElementById('calc-popup');
+  if(cp&&cp.classList.contains('show')){
+    var kt=e.key;
+    if(kt==='Enter'||kt==='='){calcPress('=');e.preventDefault();return}
+    if(kt==='Backspace'){
+      calcState.expr=calcState.expr.slice(0,-1);
+      calcState.afterEq=false;
+      calcRender();e.preventDefault();return;
+    }
+    if(kt==='*'){calcPress('×');e.preventDefault();return}
+    if(kt==='/'){calcPress('÷');e.preventDefault();return}
+    if(/^[0-9+\-().%]$/.test(kt)){calcPress(kt);e.preventDefault();return}
+  }
 });
 
 document.querySelectorAll('.mov').forEach(function(m){
-  m.addEventListener('click',function(e){if(e.target===e.currentTarget)closeModal(m.id)});
+  m.addEventListener('click',function(e){
+    if(e.target!==e.currentTarget)return;
+    if(m.id==='m-produk'){closeProdukModal();return}
+    closeModal(m.id);
+  });
 });
 
 function autoSatuan(val,satuanEl,onlyIfDefault){
@@ -1585,6 +1724,7 @@ function saveEditOp(){
   var list=gO();
   var idx=list.findIndex(function(x){return x.id===id});
   if(idx===-1){toast('Data tidak ditemukan','err');return}
+  pushUndo({type:'opname',data:gO().slice(),produk:gP().slice()});
   list[idx]=Object.assign({},list[idx],{isiPerDus:isi,dusPenuh:dus,dusBukaPcs:buka,eceran:ecer,totalLangsung:direct,totalPcs:total});
   sO(list);
   closeModal('m-editop');
@@ -1606,6 +1746,197 @@ function goToOpname(pid){
     var el=document.getElementById('d-'+pid+'-dus');
     if(el)el.focus();
   },80);
+}
+
+function pushUndo(snapshot){
+  undoStack.push(snapshot);
+  if(undoStack.length>40)undoStack.shift();
+  redoStack=[];
+  updateUndoRedoBtns();
+}
+
+function updateUndoRedoBtns(){
+  var u=document.getElementById('btn-undo');
+  var r=document.getElementById('btn-redo');
+  if(u)u.disabled=undoStack.length===0;
+  if(r)r.disabled=redoStack.length===0;
+}
+
+function doUndo(){
+  if(!undoStack.length)return;
+  var snap=undoStack.pop();
+  redoStack.push({type:snap.type,produk:gP().slice(),opname:gO().slice(),data:gO().slice()});
+  if(snap.produk!==undefined)sP(snap.produk);
+  if(snap.opname!==undefined)sO(snap.opname);
+  else if(snap.data!==undefined)sO(snap.data);
+  updateUndoRedoBtns();
+  renderTbProduk();
+  renderTbOpname();
+  if(APP.tab==='ringkasan')renderRingkasan();
+  toast('Undo berhasil','ok');
+}
+
+function doRedo(){
+  if(!redoStack.length)return;
+  var snap=redoStack.pop();
+  undoStack.push({type:snap.type,produk:gP().slice(),opname:gO().slice(),data:gO().slice()});
+  if(snap.produk!==undefined)sP(snap.produk);
+  if(snap.opname!==undefined)sO(snap.opname);
+  else if(snap.data!==undefined)sO(snap.data);
+  updateUndoRedoBtns();
+  renderTbProduk();
+  renderTbOpname();
+  if(APP.tab==='ringkasan')renderRingkasan();
+  toast('Redo berhasil','ok');
+}
+
+var undoPending=null;
+function showUndoBar(msg){
+  clearUndoBar();
+  undoPending=null;
+  var bar=document.getElementById('undo-bar');
+  var fill=document.getElementById('undo-fill');
+  document.getElementById('undo-bar-msg').textContent=msg;
+  bar.classList.add('show');
+  fill.style.transition='none';
+  fill.style.width='100%';
+  setTimeout(function(){
+    fill.style.transition='width 4s linear';
+    fill.style.width='0%';
+  },20);
+  undoBarTimer=setTimeout(function(){
+    bar.classList.remove('show');
+    undoPending=null;
+  },4200);
+}
+
+function clearUndoBar(){
+  if(undoBarTimer){clearTimeout(undoBarTimer);undoBarTimer=null}
+  var bar=document.getElementById('undo-bar');
+  if(bar)bar.classList.remove('show');
+}
+
+function triggerUndo(){
+  clearUndoBar();
+  doUndo();
+}
+
+function closeProdukModal(){
+  var dirty=APP.formDirty;
+  var bar=document.getElementById('produk-discard-bar');
+  if(dirty){
+    bar.style.display='flex';
+    bar.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+  APP.formDirty=false;
+  bar.style.display='none';
+  closeModal('m-produk');
+}
+
+function hideProdukDiscard(){
+  document.getElementById('produk-discard-bar').style.display='none';
+}
+
+function confirmProdukDiscard(){
+  APP.formDirty=false;
+  document.getElementById('produk-discard-bar').style.display='none';
+  closeModal('m-produk');
+}
+
+function toggleCalc(){
+  var pop=document.getElementById('calc-popup');
+  var btn=document.getElementById('btn-calc');
+  var show=!pop.classList.contains('show');
+  pop.classList.toggle('show',show);
+  btn.classList.toggle('active',show);
+  if(show)document.addEventListener('mousedown',calcOutside,true);
+  else document.removeEventListener('mousedown',calcOutside,true);
+}
+
+function calcOutside(e){
+  var pop=document.getElementById('calc-popup');
+  var btn=document.getElementById('btn-calc');
+  if(!pop.contains(e.target)&&e.target!==btn&&!btn.contains(e.target)){
+    pop.classList.remove('show');
+    btn.classList.remove('active');
+    document.removeEventListener('mousedown',calcOutside,true);
+  }
+}
+
+function calcPress(k){
+  var expr=calcState.expr;
+  var afterEq=calcState.afterEq;
+  if(k==='C'){calcState={expr:'',afterEq:false};calcRender();return}
+  if(k==='='){
+    var res=calcEval(expr);
+    if(res===null){calcState.expr='Error';calcState.afterEq=true;calcRender();return}
+    var resStr=calcFmt(res);
+    calcState.expr=resStr;
+    calcState.afterEq=true;
+    calcRender();
+    return;
+  }
+  var isOp=k==='+'||k==='-'||k==='×'||k==='÷';
+  var isNum=/[0-9]/.test(k)||k==='.';
+  if(afterEq){
+    if(isOp){calcState.expr=calcState.expr+k;calcState.afterEq=false}
+    else{calcState.expr=k==='±'?'':(k==='('||k===')'?k:k);calcState.afterEq=false}
+    calcRender();return;
+  }
+  if(k==='±'){
+    var tokens=expr.match(/[+\-×÷().\d]+/g)||[];
+    var lastNum=tokens[tokens.length-1];
+    if(lastNum&&/^\d/.test(lastNum)){
+      var pos=expr.lastIndexOf(lastNum);
+      var before=expr.slice(0,pos);
+      var prevChar=before.slice(-1);
+      if(prevChar==='-')calcState.expr=before.slice(0,-1)+lastNum;
+      else calcState.expr=before+'-'+lastNum;
+    }
+    calcRender();return;
+  }
+  if(k==='('||k===')'){calcState.expr=expr+k;calcRender();return}
+  if(isOp&&expr===''){calcState.expr=k;calcRender();return}
+  var lastChar=expr.slice(-1);
+  if(isOp&&'+-×÷'.indexOf(lastChar)!==-1){calcState.expr=expr.slice(0,-1)+k;calcRender();return}
+  if(k==='.'&&/\d*\.\d*$/.test(expr.split(/[+\-×÷()]/).pop())){calcRender();return}
+  calcState.expr=expr+k;
+  calcRender();
+}
+
+function calcEval(raw){
+  if(!raw||raw==='Error')return null;
+  try{
+    var s=raw.replace(/×/g,'*').replace(/÷/g,'/');
+    var open=(s.match(/\(/g)||[]).length;
+    var close=(s.match(/\)/g)||[]).length;
+    while(close<open){s+=')'};
+    var result=Function('"use strict";return('+s+')')();
+    if(!isFinite(result))return null;
+    return Math.round(result*1e10)/1e10;
+  }catch(e){return null}
+}
+
+function calcFmt(n){
+  if(n===null||n===undefined)return 'Error';
+  var s=String(n);
+  if(s.indexOf('.')!==-1){
+    s=parseFloat(n.toFixed(10)).toString();
+  }
+  return s;
+}
+
+function calcRender(){
+  var expr=calcState.expr;
+  var preview='';
+  if(!calcState.afterEq&&expr&&expr!=='Error'){
+    var r=calcEval(expr);
+    if(r!==null)preview='= '+calcFmt(r);
+  }
+  document.getElementById('calc-expr').textContent=expr||'0';
+  document.getElementById('calc-main').textContent=calcState.afterEq?(expr||'0'):(expr?expr:'0');
+  document.getElementById('calc-preview').textContent=preview;
 }
 
 (function init(){
