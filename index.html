@@ -17,7 +17,7 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 1
 .hdate{font-size:11px;color:var(--text3)}
 .hbtn{background:none;border:none;color:var(--text2);cursor:pointer;padding:8px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-width:36px;min-height:36px;transition:background .1s,color .1s}
 .hbtn:active{background:var(--s2)}
-.hbtn:disabled{opacity:.28;pointer-events:none;cursor:default}
+
 .hbtn.active{background:var(--al);color:var(--accent)}
 .hbtns-right{display:flex;align-items:center;flex-shrink:0}
 .h-gudang-name{font-family:var(--H);font-size:14px;font-weight:700;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px}
@@ -295,61 +295,73 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 .lvl-del:active{background:var(--red);color:#fff}
 .op-levels-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 /* ── Settings Sheet ── */
-.stg-sheet{position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.stg-sheet{position:fixed;inset:0;background:rgba(17,24,39,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .stg-sheet.open{display:flex}
-.stg-box{background:var(--white);width:100%;max-height:94vh;border-radius:16px 16px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -4px 32px rgba(0,0,0,.15);animation:slideUp .22s ease}
-.stg-handle{display:flex;justify-content:center;padding:10px 0 6px;flex-shrink:0;cursor:pointer}
-.stg-handle span{width:36px;height:4px;background:var(--border2);border-radius:4px;display:block}
-.stg-head{padding:4px 20px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--border)}
-.stg-title{font-family:var(--H);font-size:16px;font-weight:700}
-.stg-close{background:none;border:none;cursor:pointer;color:var(--text3);padding:8px;border-radius:var(--rs);-webkit-tap-highlight-color:transparent;font-size:18px;line-height:1}
-.stg-tabs{display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border);padding:0 12px}
+.stg-box{background:var(--white);width:100%;max-height:92vh;border-radius:20px 20px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -2px 40px rgba(0,0,0,.18);animation:slideUp .24s cubic-bezier(.4,0,.2,1)}
+.stg-handle{display:flex;justify-content:center;padding:10px 0 4px;flex-shrink:0}
+.stg-handle span{width:32px;height:4px;background:var(--border2);border-radius:4px;display:block}
+.stg-head{padding:8px 20px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--border);min-height:48px}
+.stg-title{font-family:var(--H);font-size:16px;font-weight:700;letter-spacing:-.01em}
+.stg-close{background:var(--s2);border:none;cursor:pointer;color:var(--text3);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;flex-shrink:0}
+.stg-close:hover{background:var(--border);color:var(--text2)}
+.stg-close:active{background:var(--border2)}
+.stg-tabs{display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border);padding:0 16px;gap:0}
 .stg-tabs::-webkit-scrollbar{display:none}
-.stg-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);font-family:var(--H);font-size:12px;font-weight:500;padding:10px 12px;cursor:pointer;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.stg-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);font-family:var(--H);font-size:12px;font-weight:500;padding:11px 14px;cursor:pointer;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:color .15s}
+.stg-tab:hover{color:var(--text2)}
 .stg-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
-.stg-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 40px}
+.stg-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 20px 48px}
 .stg-sec{display:none}
 .stg-sec.active{display:block}
-.stg-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:12px}
+.stg-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);gap:14px}
 .stg-row:last-child{border-bottom:none}
 .stg-row-left{flex:1;min-width:0}
-.stg-row-lbl{font-family:var(--H);font-size:13px;font-weight:600;color:var(--text)}
-.stg-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
-.stg-grp{margin-bottom:20px}
-.stg-grp-title{font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.toggle-wrap{position:relative;width:44px;height:26px;flex-shrink:0}
+.stg-row-lbl{font-family:var(--H);font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.stg-row-sub{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4}
+.stg-grp{margin-bottom:24px}
+.stg-grp-title{font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.stg-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:0}
+.stg-card .stg-row{padding:13px 14px;border-bottom:1px solid var(--border)}
+.stg-card .stg-row:last-child{border-bottom:none}
+.toggle-wrap{position:relative;width:46px;height:27px;flex-shrink:0}
 .toggle-wrap input{opacity:0;width:0;height:0;position:absolute}
-.toggle-slider{position:absolute;inset:0;background:var(--border2);border-radius:13px;cursor:pointer;transition:background .2s}
-.toggle-slider::before{content:'';position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-slider{position:absolute;inset:0;background:var(--border2);border-radius:14px;cursor:pointer;transition:background .22s}
+.toggle-slider::before{content:'';position:absolute;width:21px;height:21px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .22s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 .toggle-wrap input:checked+.toggle-slider{background:var(--accent)}
-.toggle-wrap input:checked+.toggle-slider::before{transform:translateX(18px)}
+.toggle-wrap input:checked+.toggle-slider::before{transform:translateX(19px)}
+.stg-info-box{background:var(--al);border:1px solid var(--ab);border-radius:var(--rs);padding:10px 14px;font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:12px}
 .stg-unit-map{display:flex;flex-direction:column;gap:4px}
-.stg-unit-card{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;transition:border-color .15s}
-.stg-unit-card:focus-within{border-color:var(--accent)}
-.stg-unit-kw{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:5px 10px;font-family:var(--H);font-size:13px;font-weight:700;color:var(--accent);width:72px;text-align:center;outline:none;transition:border-color .15s}
-.stg-unit-kw:focus{border-color:var(--accent);background:var(--al)}
-.stg-unit-arr{color:var(--text3);flex-shrink:0;font-size:16px}
-.stg-unit-lbl{flex:1;border:none;background:transparent;font-size:13px;font-family:var(--B);color:var(--text);outline:none;padding:0}
-.stg-unit-lbl:focus{color:var(--accent)}
-.stg-unit-sat{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:4px 6px;font-size:11px;font-family:var(--H);color:var(--text2);outline:none;-webkit-appearance:none;width:70px}
-.stg-unit-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:4px;border-radius:var(--rs);-webkit-tap-highlight-color:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.stg-unit-card{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:9px 12px;transition:border-color .15s}
+.stg-unit-card:focus-within{border-color:var(--accent);background:var(--white)}
+.stg-unit-kw{background:var(--al);border:1px solid var(--ab);border-radius:var(--rs);padding:5px 8px;font-family:var(--H);font-size:13px;font-weight:700;color:var(--accent);width:68px;text-align:center;outline:none;transition:all .15s}
+.stg-unit-kw:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--al)}
+.stg-unit-arr{color:var(--text3);flex-shrink:0;display:flex;align-items:center}
+.stg-unit-lbl{flex:1;border:none;background:transparent;font-size:13px;font-family:var(--B);color:var(--text);outline:none;padding:0;min-width:0}
+.stg-unit-lbl::placeholder{color:var(--text3)}
+.stg-unit-sat{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:5px 6px;font-size:11px;font-family:var(--H);color:var(--text2);outline:none;-webkit-appearance:none;width:68px;cursor:pointer}
+.stg-unit-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:5px;border-radius:50%;-webkit-tap-highlight-color:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .1s,color .1s;width:28px;height:28px}
 .stg-unit-del:hover{color:var(--red);background:var(--rl)}
-.about-logo{text-align:center;padding:20px 0 16px}
-.about-logo-txt{font-family:var(--H);font-size:28px;font-weight:700;letter-spacing:-.03em}
-.about-logo-txt span{color:var(--accent)}
-.about-version{font-size:12px;color:var(--text3);margin-top:4px}
-.about-link{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;color:var(--text)}
-.about-link:last-child{border-bottom:none}
-.about-link-lbl{font-family:var(--H);font-size:13px;font-weight:600}
-.about-link-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.about-hero{text-align:center;padding:24px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.about-hero-logo{font-family:var(--H);font-size:32px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.about-hero-logo span{color:var(--accent)}
+.about-hero-tagline{font-size:12px;color:var(--text3);margin-top:6px}
+.about-hero-version{display:inline-flex;align-items:center;gap:6px;background:var(--al);border:1px solid var(--ab);border-radius:20px;padding:4px 12px;font-family:var(--H);font-size:11px;font-weight:600;color:var(--accent);margin-top:10px}
+.about-link{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;color:var(--text);transition:background .1s}
+.about-link:last-child{border-bottom:none;border-radius:0 0 var(--rs) var(--rs)}
+.about-link:hover{background:var(--bg)}
+.about-link:active{background:var(--s2)}
+.about-link-lbl{font-family:var(--H);font-size:13px;font-weight:600;color:var(--text)}
+.about-link-sub{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
 .about-link-arrow{color:var(--text3);flex-shrink:0}
-.xfer-area{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;font-size:11px;font-family:monospace;word-break:break-all;color:var(--text2);max-height:80px;overflow-y:auto;cursor:text;user-select:all;line-height:1.5}
-.stg-sat-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;min-height:36px}
-.stg-sat-tag{display:inline-flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:5px 12px 5px 12px;font-family:var(--H);font-size:12px;font-weight:600;color:var(--text2);transition:border-color .15s}
-.stg-sat-tag:hover{border-color:var(--border2)}
-.stg-sat-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:0 0 0 2px;line-height:1;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;width:16px;height:16px;justify-content:center;border-radius:50%;transition:background .1s,color .1s}
+.xfer-result{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:10px}
+.xfer-label{font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+.xfer-code{font-family:monospace;font-size:11px;word-break:break-all;color:var(--text);line-height:1.6;max-height:72px;overflow-y:auto;user-select:all;cursor:text}
+.xfer-size{font-family:var(--H);font-size:10px;color:var(--green);font-weight:600}
+.stg-sat-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;min-height:32px}
+.stg-sat-tag{display:inline-flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:5px 10px 5px 13px;font-family:var(--H);font-size:12px;font-weight:600;color:var(--text2)}
+.stg-sat-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:0;line-height:1;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;transition:background .1s,color .1s;flex-shrink:0}
 .stg-sat-del:hover{background:var(--red);color:#fff}
-@media(min-width:768px){.stg-box{max-width:560px;border-radius:var(--r);margin:auto;max-height:88vh}.stg-sheet{align-items:center}}
+@media(min-width:768px){.stg-box{max-width:560px;border-radius:var(--r);margin:auto;max-height:86vh}.stg-sheet{align-items:center}}
 @media(min-width:768px){
   main{padding:24px;padding-bottom:72px}
   header{padding:0 28px}
@@ -528,7 +540,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
     <div id="tab-ekspor" class="sec">
       <div class="ph">
-        <div><div class="pt">Ekspor &amp; Reset</div><div class="ps">Unduh data atau kelola gudang</div></div>
+        <div><div class="pt">Ekspor &amp; Reset</div><div class="ps">Unduh laporan data dan kelola manajemen gudang</div></div>
       </div>
       <div class="card">
         <div style="font-family:var(--H);font-size:13px;font-weight:600;margin-bottom:12px">Format Ekspor</div>
@@ -767,132 +779,180 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div id="stg-sheet" class="stg-sheet" onclick="if(event.target===this)closeSettings()">
   <div class="stg-box">
-    <div class="stg-handle" onclick="closeSettings()"><span></span></div>
+    <div class="stg-handle"><span></span></div>
     <div class="stg-head">
       <div class="stg-title">Pengaturan</div>
-      <button class="stg-close" onclick="closeSettings()">✕</button>
+      <button class="stg-close" onclick="closeSettings()" aria-label="Tutup">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
+      </button>
     </div>
-    <div class="stg-tabs" id="stg-tabs">
+    <div class="stg-tabs">
       <button class="stg-tab active" onclick="stgTab('umum',this)">Umum</button>
       <button class="stg-tab" onclick="stgTab('transfer',this)">Transfer Data</button>
       <button class="stg-tab" onclick="stgTab('tentang',this)">Tentang</button>
     </div>
     <div class="stg-body">
 
-      
       <div id="stg-umum" class="stg-sec active">
         <div class="stg-grp">
           <div class="stg-grp-title">Tampilan</div>
-          <div class="stg-row">
-            <div class="stg-row-left">
-              <div class="stg-row-lbl">Mode Gelap</div>
-              <div class="stg-row-sub">Ubah tema terang/gelap</div>
+          <div class="stg-card">
+            <div class="stg-row">
+              <div class="stg-row-left">
+                <div class="stg-row-lbl">Mode Gelap</div>
+                <div class="stg-row-sub">Sesuaikan tampilan dengan kondisi pencahayaan ruangan</div>
+              </div>
+              <label class="toggle-wrap"><input type="checkbox" id="stg-dark-toggle" onchange="toggleDark()"><span class="toggle-slider"></span></label>
             </div>
-            <label class="toggle-wrap"><input type="checkbox" id="stg-dark-toggle" onchange="toggleDark()"><span class="toggle-slider"></span></label>
           </div>
         </div>
+
         <div class="stg-grp">
           <div class="stg-grp-title">Format Unit Otomatis</div>
-          <div class="stg-row-sub" style="margin-bottom:12px">Ketik nama varian seperti <span style="font-family:var(--H);font-weight:600;color:var(--accent)">500gr</span> atau <span style="font-family:var(--H);font-weight:600;color:var(--accent)">1L</span> maka akan otomatis diformat jadi <span style="font-family:var(--H);font-weight:600;color:var(--accent)">500 Gram</span> atau <span style="font-family:var(--H);font-weight:600;color:var(--accent)">1 Liter</span>.</div>
-          <div style="display:grid;grid-template-columns:72px 1fr 70px 28px;gap:4px;padding:0 2px;margin-bottom:6px">
-            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Singkatan</div>
-            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Label Penuh</div>
-            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase">Satuan</div>
+          <div class="stg-info-box">Saat mengetik nama varian, sistem akan otomatis memformat satuan. Contoh: <strong>500gr</strong> menjadi <strong>500 Gram</strong>, <strong>1L</strong> menjadi <strong>1 Liter</strong>.</div>
+          <div style="display:grid;grid-template-columns:68px 1fr 68px 28px;gap:6px;padding:0 2px;margin-bottom:6px">
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.05em;text-transform:uppercase">Singkatan</div>
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.05em;text-transform:uppercase">Label</div>
+            <div style="font-family:var(--H);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.05em;text-transform:uppercase">Satuan</div>
             <div></div>
           </div>
           <div class="stg-unit-map" id="stg-unit-map"></div>
-          <button class="btn bo bsm" style="margin-top:4px" onclick="stgAddUnitRow()">
+          <button class="btn bo bsm" style="margin-top:8px" onclick="stgAddUnitRow()">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Tambah Singkatan
           </button>
         </div>
+
         <div class="stg-grp">
           <div class="stg-grp-title">Daftar Satuan</div>
-          <div class="stg-row-sub" style="margin-bottom:10px">Satuan yang muncul di dropdown saat tambah produk. Ketuk <strong style="color:var(--red)">✕</strong> untuk hapus.</div>
+          <div class="stg-row-sub" style="margin-bottom:10px">Satuan yang tersedia pada dropdown formulir produk. Tekan tanda silang untuk menghapus.</div>
           <div class="stg-sat-list" id="stg-sat-list"></div>
           <div style="display:flex;gap:8px;margin-top:4px">
-            <input type="text" id="stg-sat-inp" placeholder="cth: dus, kardus, botol besar..." style="flex:1;font-size:13px" onkeydown="if(event.key==='Enter'){stgAddSatuan();this.focus()}" autocomplete="off" autocorrect="off" autocapitalize="off">
+            <input type="text" id="stg-sat-inp" placeholder="Tambahkan satuan baru..." style="flex:1" onkeydown="if(event.key==='Enter'){stgAddSatuan();this.focus()}" autocomplete="off" autocorrect="off" autocapitalize="off">
             <button class="btn bp bsm" onclick="stgAddSatuan()">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Tambah
             </button>
           </div>
-          <div style="font-size:11px;color:var(--text3);margin-top:8px">Satuan default tidak bisa dihapus jika masih dipakai oleh produk.</div>
         </div>
+
         <div class="stg-grp">
-          <div class="stg-grp-title">Gudang Ini</div>
-          <div class="stg-row">
-            <div class="stg-row-left"><div class="stg-row-lbl">Nama Gudang</div><div class="stg-row-sub" id="stg-gudang-name-lbl">—</div></div>
-            <button class="btn bo bsm" onclick="closeSettings();openEditGudang()">Ubah</button>
+          <div class="stg-grp-title">Gudang Aktif</div>
+          <div class="stg-card">
+            <div class="stg-row">
+              <div class="stg-row-left">
+                <div class="stg-row-lbl">Nama Gudang</div>
+                <div class="stg-row-sub" id="stg-gudang-name-lbl">—</div>
+              </div>
+              <button class="btn bo bsm" onclick="closeSettings();openEditGudang()">Ubah Nama</button>
+            </div>
           </div>
         </div>
       </div>
 
-      
       <div id="stg-transfer" class="stg-sec">
         <div class="stg-grp">
-          <div class="stg-grp-title">Ekspor ke Perangkat Lain</div>
-          <div class="stg-row-sub" style="margin-bottom:10px">Salin kode di bawah lalu tempel di pengaturan perangkat lain untuk memindahkan semua data.</div>
-          <div style="margin-bottom:8px">
-            <div style="font-family:var(--H);font-size:11px;font-weight:600;color:var(--text3);margin-bottom:6px">KODE EKSPOR (semua gudang)</div>
-            <div class="xfer-area" id="stg-export-code">Klik "Generate" untuk membuat kode</div>
+          <div class="stg-grp-title">Ekspor Data</div>
+          <div class="stg-info-box">Data seluruh gudang dikompres dan dienkripsi menjadi kode unik. Salin kode tersebut, lalu tempelkan pada perangkat tujuan melalui fitur Impor di bawah ini.</div>
+          <div id="stg-xfer-result" style="display:none;margin-bottom:12px">
+            <div class="xfer-result">
+              <div class="xfer-label">
+                <span>Kode Transfer</span>
+                <span class="xfer-size" id="stg-xfer-size"></span>
+              </div>
+              <div class="xfer-code" id="stg-export-code"></div>
+            </div>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn bp bsm" onclick="stgGenExport()">Generate Kode</button>
-            <button class="btn bo bsm" onclick="stgCopyCode()" id="stg-copy-btn">
+            <button class="btn bp" style="flex:1" onclick="stgGenExport()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Buat Kode Transfer
+            </button>
+            <button class="btn bo bsm" id="stg-copy-btn" onclick="stgCopyCode()" style="display:none">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
               Salin
+            </button>
+            <button class="btn bo bsm" id="stg-share-btn" onclick="stgShareCode()" style="display:none">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Bagikan
             </button>
           </div>
         </div>
         <div class="div"></div>
         <div class="stg-grp">
-          <div class="stg-grp-title">Impor dari Perangkat Lain</div>
-          <div class="stg-row-sub" style="margin-bottom:10px">Tempel kode dari perangkat lain. Data yang ada akan <span style="color:var(--red);font-weight:600">digabungkan</span> (gudang baru ditambah, yang sudah ada dipertahankan).</div>
-          <textarea id="stg-import-code" rows="4" placeholder="Tempel kode ekspor di sini..." style="resize:vertical;font-family:monospace;font-size:12px;margin-bottom:8px"></textarea>
+          <div class="stg-grp-title">Impor Data</div>
+          <div class="stg-info-box">Tempelkan kode transfer dari perangkat lain. Data yang berhasil diimpor akan <strong>digabungkan</strong> dengan data yang sudah ada — gudang baru akan ditambahkan, gudang yang sudah ada tidak akan ditimpa.</div>
+          <textarea id="stg-import-code" rows="3" placeholder="Paste Disini" style="resize:none;font-family:monospace;font-size:11px;margin-bottom:10px;letter-spacing:.02em"></textarea>
           <button class="btn bp bfull" onclick="stgDoImport()">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Impor Data
+            Mulai Impor
           </button>
         </div>
       </div>
 
-      
       <div id="stg-tentang" class="stg-sec">
-        <div class="about-logo">
-          <div class="about-logo-txt">ailuasc<span>.</span></div>
-          <div class="about-version">StokGudang v2.0 &bull; &copy; 2026 ailuasc</div>
+        <div class="about-hero">
+          <div class="about-hero-logo">ailuasc<span>.</span></div>
+          <div class="about-hero-tagline">Manajemen stok gudang yang efisien dan terpercaya</div>
+          <div><span class="about-hero-version">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Versi 2.0
+          </span></div>
         </div>
+
         <div class="stg-grp">
-          <div class="stg-grp-title">Produk</div>
-          <a class="about-link" href="https://ailuascreative.com" target="_blank" rel="noopener">
-            <div><div class="about-link-lbl">ailuascreative.com</div><div class="about-link-sub">Website resmi ailuasc Creative</div></div>
-            <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-          <div class="about-link">
-            <div><div class="about-link-lbl">Versi Aplikasi</div><div class="about-link-sub">StokGudang 2.0 — build 2026.03</div></div>
-          </div>
-          <div class="about-link">
-            <div><div class="about-link-lbl">Platform</div><div class="about-link-sub">Web App — HTML/CSS/JS, offline-ready</div></div>
+          <div class="stg-grp-title">Pengembang</div>
+          <div class="stg-card">
+            <a class="about-link" href="https://ailuascreative.com" target="_blank" rel="noopener">
+              <div>
+                <div class="about-link-lbl">ailuascreative</div>
+                <div class="about-link-sub">ailuascreative.com — Solusi digital kreatif</div>
+              </div>
+              <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <div class="about-link">
+              <div>
+                <div class="about-link-lbl">Platform</div>
+                <div class="about-link-sub">Aplikasi web — bekerja tanpa koneksi internet</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="stg-grp">
-          <div class="stg-grp-title">Legal</div>
-          <div class="about-link" onclick="stgShowPrivacy()">
-            <div><div class="about-link-lbl">Kebijakan Privasi</div><div class="about-link-sub">Data tersimpan lokal di perangkat Anda</div></div>
-            <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="about-link">
-            <div><div class="about-link-lbl">Lisensi</div><div class="about-link-sub">Proprietary &bull; ailuasc Creative 2026</div></div>
+          <div class="stg-grp-title">Privasi &amp; Keamanan</div>
+          <div class="stg-card">
+            <div class="about-link" onclick="stgShowPrivacy()">
+              <div>
+                <div class="about-link-lbl">Kebijakan Privasi</div>
+                <div class="about-link-sub">Seluruh data tersimpan lokal di perangkat Anda</div>
+              </div>
+              <svg class="about-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="about-link">
+              <div>
+                <div class="about-link-lbl">Lisensi</div>
+                <div class="about-link-sub">Proprietary — ailuasc Creative 2026</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="stg-grp">
-          <div class="stg-grp-title">Penyimpanan</div>
-          <div class="about-link">
-            <div><div class="about-link-lbl">Lokasi Data</div><div class="about-link-sub">localStorage browser perangkat ini</div></div>
-          </div>
-          <div class="about-link">
-            <div><div class="about-link-lbl">Ukuran Data</div><div class="about-link-sub" id="stg-storage-size">Menghitung...</div></div>
+          <div class="stg-grp-title">Penyimpanan Lokal</div>
+          <div class="stg-card">
+            <div class="about-link">
+              <div>
+                <div class="about-link-lbl">Lokasi Data</div>
+                <div class="about-link-sub">localStorage browser pada perangkat ini</div>
+              </div>
+            </div>
+            <div class="about-link">
+              <div>
+                <div class="about-link-lbl">Kapasitas Terpakai</div>
+                <div class="about-link-sub" id="stg-storage-size">Menghitung...</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -903,14 +963,22 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:14px 2
 
 <div id="stg-privacy-sheet" class="stg-sheet" style="z-index:301" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="stg-box">
-    <div class="stg-handle" onclick="document.getElementById('stg-privacy-sheet').classList.remove('open')"><span></span></div>
-    <div class="stg-head"><div class="stg-title">Kebijakan Privasi</div><button class="stg-close" onclick="document.getElementById('stg-privacy-sheet').classList.remove('open')">✕</button></div>
-    <div class="stg-body" style="font-size:13px;color:var(--text2);line-height:1.7">
-      <p style="margin-bottom:12px"><strong style="color:var(--text)">StokGudang</strong> adalah aplikasi manajemen stok gudang yang dibuat oleh <strong style="color:var(--text)">ailuasc Creative</strong>.</p>
-      <p style="margin-bottom:12px"><strong style="color:var(--text)">Data Anda 100% privat.</strong> Semua data (produk, opname, riwayat) tersimpan hanya di <code>localStorage</code> browser perangkat Anda sendiri. Tidak ada data yang dikirim ke server manapun.</p>
-      <p style="margin-bottom:12px">Kami tidak mengumpulkan, menjual, atau membagikan data apapun. Tidak ada akun, tidak ada cloud, tidak ada tracking.</p>
-      <p style="margin-bottom:12px"><strong style="color:var(--text)">Transfer Data</strong> menggunakan kode yang Anda generate dan salin sendiri — kami tidak menyimpan kode tersebut.</p>
-      <p style="color:var(--text3);font-size:11px">ailuasc Creative &bull; ailuascreative.com &bull; 2026</p>
+    <div class="stg-handle"><span></span></div>
+    <div class="stg-head">
+      <div class="stg-title">Kebijakan Privasi</div>
+      <button class="stg-close" onclick="document.getElementById('stg-privacy-sheet').classList.remove('open')" aria-label="Tutup">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
+      </button>
+    </div>
+    <div class="stg-body">
+      <div style="font-size:13px;color:var(--text2);line-height:1.75">
+        <div style="font-family:var(--H);font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px">Komitmen Privasi Kami</div>
+        <p style="margin-bottom:14px"><strong style="color:var(--text)">StokGudang</strong> dikembangkan oleh <strong style="color:var(--text)">ailuasc Creative</strong> sebagai solusi manajemen stok gudang yang mengutamakan privasi pengguna.</p>
+        <p style="margin-bottom:14px"><strong style="color:var(--accent)">Seluruh data tersimpan secara lokal.</strong> Semua informasi yang Anda masukkan — termasuk data produk, hasil opname, dan riwayat — hanya tersimpan di penyimpanan lokal (localStorage) browser pada perangkat Anda sendiri. Tidak ada data yang dikirimkan ke server eksternal.</p>
+        <p style="margin-bottom:14px">ailuasc Creative tidak mengumpulkan, menyimpan, menjual, ataupun membagikan data pengguna kepada pihak ketiga. Aplikasi ini beroperasi sepenuhnya secara offline tanpa memerlukan akun, koneksi internet, atau layanan cloud.</p>
+        <p style="margin-bottom:14px">Fitur Transfer Data bekerja dengan menghasilkan kode terenkripsi yang Anda salin dan tempelkan secara mandiri. Kode tersebut tidak tersimpan di sistem kami.</p>
+        <p style="font-size:11px;color:var(--text3);padding-top:12px;border-top:1px solid var(--border)">ailuasc Creative &bull; ailuascreative.com &bull; Berlaku sejak Maret 2026</p>
+      </div>
     </div>
   </div>
 </div>
@@ -2555,56 +2623,140 @@ function stgShowPrivacy(){
   document.getElementById('stg-privacy-sheet').classList.add('open');
 }
 
+var XFR_KEY='SG5_AILUASC_2026';
+
+function xfrCompress(str){
+  var dict={},data=str.split(''),out=[],currPhrase=data[0],code=256;
+  for(var i=1;i<data.length;i++){
+    var currCode=data[i];
+    if(dict[currPhrase+currCode]!==undefined){
+      currPhrase+=currCode;
+    } else {
+      out.push(currPhrase.length>1?dict[currPhrase]:currPhrase.charCodeAt(0));
+      dict[currPhrase+currCode]=code++;
+      currPhrase=currCode;
+    }
+  }
+  out.push(currPhrase.length>1?dict[currPhrase]:currPhrase.charCodeAt(0));
+  return out;
+}
+
+function xfrDecompress(codes){
+  var dict={},currCode=codes[0],oldPhrase=String.fromCharCode(currCode),out=[oldPhrase],code=256,phrase;
+  for(var i=1;i<codes.length;i++){
+    var currCodeVal=codes[i];
+    if(currCodeVal<256){phrase=String.fromCharCode(currCodeVal);}
+    else{phrase=dict[currCodeVal]?dict[currCodeVal]:oldPhrase+oldPhrase[0];}
+    out.push(phrase);
+    dict[code++]=oldPhrase+phrase[0];
+    oldPhrase=phrase;
+  }
+  return out.join('');
+}
+
+function xfrXor(str,key){
+  var res='';
+  for(var i=0;i<str.length;i++){
+    res+=String.fromCharCode(str.charCodeAt(i)^key.charCodeAt(i%key.length));
+  }
+  return res;
+}
+
+function xfrEncode(data){
+  var json=JSON.stringify(data);
+  var codes=xfrCompress(json);
+  var packed=codes.map(function(n){
+    return String.fromCharCode(n>>8&0xFF,n&0xFF);
+  }).join('');
+  var encrypted=xfrXor(packed,XFR_KEY);
+  var b64='';
+  for(var i=0;i<encrypted.length;i++){
+    b64+=String.fromCharCode(encrypted.charCodeAt(i));
+  }
+  return 'SG3:'+btoa(b64).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+
+function xfrDecode(code){
+  if(!code.startsWith('SG3:'))throw new Error('Invalid header');
+  var b64=code.slice(4).replace(/-/g,'+').replace(/_/g,'/');
+  while(b64.length%4)b64+='=';
+  var encrypted=atob(b64);
+  var packed=xfrXor(encrypted,XFR_KEY);
+  var codes=[];
+  for(var i=0;i<packed.length;i+=2){
+    codes.push((packed.charCodeAt(i)<<8)|packed.charCodeAt(i+1));
+  }
+  var json=xfrDecompress(codes);
+  return JSON.parse(json);
+}
+
 function stgGenExport(){
   try{
-    var data={v:2,ts:Date.now(),gudang:gG(),prods:{},ops:{}};
+    var data={v:3,ts:Date.now(),gudang:gG(),p:{},o:{}};
     gG().forEach(function(g){
-      data.prods[g.id]=gl('sg5_p_'+g.id,[]);
-      data.ops[g.id]=gl('sg5_o_'+g.id,[]);
+      data.p[g.id]=gl('sg5_p_'+g.id,[]);
+      data.o[g.id]=gl('sg5_o_'+g.id,[]);
     });
-    var json=JSON.stringify(data);
-    var code=btoa(unescape(encodeURIComponent(json)));
-    document.getElementById('stg-export-code').textContent=code;
-    toast('Kode berhasil dibuat','ok');
+    var code=xfrEncode(data);
+    var el=document.getElementById('stg-export-code');
+    if(el)el.textContent=code;
+    var sz=document.getElementById('stg-xfer-size');
+    if(sz)sz.textContent=code.length+' karakter';
+    var res=document.getElementById('stg-xfer-result');
+    if(res)res.style.display='block';
+    document.getElementById('stg-copy-btn').style.display='';
+    if(navigator.share)document.getElementById('stg-share-btn').style.display='';
+    toast('Kode berhasil dibuat ('+code.length+' karakter)','ok');
   }catch(e){toast('Gagal generate kode','err');}
 }
 
 function stgCopyCode(){
-  var code=document.getElementById('stg-export-code').textContent;
-  if(!code||code==='Klik "Generate" untuk membuat kode')return;
+  var code=(document.getElementById('stg-export-code')||{}).textContent||'';
+  if(!code||!code.startsWith('SG3:'))return;
   if(navigator.clipboard){
-    navigator.clipboard.writeText(code).then(function(){toast('Kode disalin!','ok');}).catch(function(){stgCopyFallback(code);});
+    navigator.clipboard.writeText(code).then(function(){toast('Disalin!','ok');}).catch(function(){stgCopyFallback(code);});
   } else {stgCopyFallback(code);}
+}
+
+function stgShareCode(){
+  var code=(document.getElementById('stg-export-code')||{}).textContent||'';
+  if(!code)return;
+  if(navigator.share){
+    navigator.share({title:'StokGudang Data',text:code}).catch(function(){});
+  }
 }
 
 function stgCopyFallback(text){
   var ta=document.createElement('textarea');
-  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  ta.value=text;ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
   document.body.appendChild(ta);ta.select();
-  try{document.execCommand('copy');toast('Kode disalin!','ok');}catch(e){toast('Gagal menyalin','err');}
+  try{document.execCommand('copy');toast('Disalin!','ok');}catch(e){toast('Gagal menyalin','err');}
   document.body.removeChild(ta);
 }
 
 function stgDoImport(){
-  var code=(document.getElementById('stg-import-code').value||'').trim();
-  if(!code){toast('Tempel kode ekspor terlebih dahulu','err');return;}
+  var code=(document.getElementById('stg-import-code').value||'').trim().replace(/\s/g,'');
+  if(!code){toast('Tempel kode dulu','err');return;}
   try{
-    var json=decodeURIComponent(escape(atob(code)));
-    var data=JSON.parse(json);
-    if(!data.v||!data.gudang){throw new Error('Invalid');}
-    var existing=gG();
-    var added=0;
+    var data=xfrDecode(code);
+    if(!data.v||!data.gudang)throw new Error('Invalid');
+    var existing=gG();var added=0;var updated=0;
+    var prods=data.p||data.prods||{};
+    var ops=data.o||data.ops||{};
     data.gudang.forEach(function(g){
-      var dup=existing.find(function(e){return e.id===g.id||e.nama===g.nama});
+      var dup=existing.find(function(e){return e.id===g.id});
       if(!dup){existing.push(g);added++;}
-      sl('sg5_p_'+g.id,data.prods[g.id]||[]);
-      sl('sg5_o_'+g.id,data.ops[g.id]||[]);
+      else{updated++;}
+      sl('sg5_p_'+g.id,prods[g.id]||[]);
+      sl('sg5_o_'+g.id,ops[g.id]||[]);
     });
     sG(existing);
     document.getElementById('stg-import-code').value='';
-    toast(added+' gudang baru ditambahkan','ok');
+    var msg=added?' '+added+' gudang ditambah':'';
+    msg+=updated?' '+updated+' diperbarui':'';
+    toast('Impor berhasil!'+msg,'ok');
     renderHome();
-  }catch(e){toast('Kode tidak valid atau rusak','err');}
+  }catch(e){toast('Kode tidak valid','err');}
 }
 
 function satOpts(sel){
